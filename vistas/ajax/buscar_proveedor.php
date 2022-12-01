@@ -60,6 +60,12 @@ if ($action == 'ajax') {
                     <th>RUC</th>
                     <th>Dirección</th>
                     <th>Teléfono</th>
+
+                    <th>Facebook</th>
+                    <th>Instagram</th>
+                    <th>Twitter</th>
+                    <th>Tiktok</th>
+                
                     <th>Estado</th>
                     <th class='text-right'>Acciones</th>
 
@@ -81,6 +87,11 @@ while ($row = mysqli_fetch_array($query)) {
             } else {
                 $estado = "<span class='badge badge-danger'>Inactivo</span>";
             }
+            
+            $facebook            = $row['facebook'];
+            $instagram           = $row['instagram'];
+            $twitter             = $row['twitter'];
+            $tiktok              = $row['tiktok'];
 
             ?>
                     <input type="hidden" value="<?php echo $nombre_proveedor; ?>" id="nombre_proveedor<?php echo $id_proveedor; ?>">
@@ -91,6 +102,11 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $email_proveedor; ?>" id="email_proveedor<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $telefono_proveedor; ?>" id="telefono_proveedor<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $estado_proveedor; ?>" id="estado_proveedor<?php echo $id_proveedor; ?>">
+
+                    <input type="hidden" value="<?php echo $facebook; ?>"   id="facebook<?php echo $facebook; ?>">
+                    <input type="hidden" value="<?php echo $instagram; ?>"  id="instagram<?php echo $instagram; ?>">
+                    <input type="hidden" value="<?php echo $twitter; ?>"    id="twitter<?php echo $twitter; ?>">
+                    <input type="hidden" value="<?php echo $tiktok; ?>"     id="tiktok<?php echo $tiktok; ?>">
 
                     <tr>
                     <td><span class="badge badge-purple"><?php echo $id_proveedor; ?></span></td>
@@ -106,6 +122,12 @@ while ($row = mysqli_fetch_array($query)) {
                     <td><?php echo $fiscal_proveedor; ?></td>
                     <td><?php echo $direccion_proveedor; ?></td>
                     <td><?php echo $telefono_proveedor; ?></td>
+
+                    <td><?php echo $facebook; ?></td>
+                    <td><?php echo $instagram; ?></td>
+                    <td><?php echo $twitter; ?></td>
+                    <td><?php echo $tiktok; ?></td>
+
                     <td><?php echo $estado; ?></td>
 
                     <td >
@@ -146,7 +168,7 @@ echo paginate($reload, $page, $total_pages, $adjacents);
         ?>
     <div class="alert alert-warning alert-dismissible" role="alert" align="center">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Aviso!</strong> No hay Registro de Clientes
+      <strong>Aviso!</strong> No hay Registro de Proveedores
   </div>
   <?php
 }

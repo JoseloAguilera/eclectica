@@ -100,6 +100,39 @@ if (isset($conexion)) {
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="facebook" class="control-label">Facebook:</label>
+											<input type="text" class="form-control" id="facebok" name="facebook" autocomplete="off">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="instagram" class="control-label">Instagram:</label>
+											<input type="text" class="form-control" id="instagram" name="instagram" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="twitter" class="control-label">Twitter:</label>
+											<input type="text" class="form-control" id="twitter" name="twitter" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="tiktok" class="control-label">Tiktok:</label>
+											<input type="text" class="form-control" id="tiktok" name="tiktok" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
 
 							</div>
 						</div>

@@ -110,6 +110,10 @@
 		    var email_proveedor = $("#email_proveedor" + id).val();
 		    var telefono_proveedor = $("#telefono_proveedor" + id).val();
 		    var estado_proveedor = $("#estado_proveedor" + id).val();
+		    var facebook = $("#facebook" + id).val();
+		    var instagram = $("#instagram" + id).val();
+		    var twitter = $("#twitter" + id).val();
+		    var tiktok = $("#tiktok" + id).val();
 		    $("#mod_nombre").val(nombre_proveedor);
 		    $("#mod_fiscal").val(fiscal_proveedor);
 		    $("#mod_web").val(web_proveedor);
@@ -119,4 +123,11 @@
 		    $("#mod_telefono").val(telefono_proveedor);
 		    $("#mod_estado").val(estado_proveedor);
 		    $("#mod_id").val(id);
+		    $("#mod_facebook").val(facebook);
+		    $("#mod_instagram").val(instagram);
+		    $("#mod_twitter").val(twitter);
+		    $("#mod_tiktok").val(tiktok);
+
+			console.log(facebook)
 		}
+		

@@ -23,17 +23,25 @@ if (empty($_POST['mod_id'])) {
     $contacto  = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_contacto"], ENT_QUOTES)));
     $email     = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_email"], ENT_QUOTES)));
     $telefono  = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_telefono"], ENT_QUOTES)));
+    $facebook  = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_facebook"], ENT_QUOTES)));
+    $instagram = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_instagram"], ENT_QUOTES)));
+    $twitter   = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_twitter"], ENT_QUOTES)));
+    $tiktok    = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_tiktok"], ENT_QUOTES)));
     $estado    = intval($_POST['mod_estado']);
 
     $id_proveedor = intval($_POST['mod_id']);
-    $sql          = "UPDATE proveedores SET nombre_proveedor='" . $nombre . "',
-                                            fiscal_proveedor='" . $fiscal . "',
-                                            web_proveedor='" . $web . "',
-                                            direccion_proveedor='" . $direccion . "',
-                                            contacto_proveedor='" . $contacto . "',
-                                            email_proveedor='" . $email . "',
-                                            estado_proveedor='" . $estado . "'
-                                            WHERE id_proveedor='" . $id_proveedor . "'";
+    $sql          = "UPDATE proveedores SET nombre_proveedor    ='" . $nombre . "',
+                                            fiscal_proveedor    ='" . $fiscal . "',
+                                            web_proveedor       ='" . $web . "',
+                                            direccion_proveedor ='" . $direccion . "',
+                                            contacto_proveedor  ='" . $contacto . "',
+                                            email_proveedor     ='" . $email . "',
+                                            estado_proveedor    ='" . $estado . "',
+                                            facebook            ='" . $facebook . "',
+                                            instagram           ='" . $instagram . "',
+                                            twitter             ='" . $twitter . "',
+                                            tiktok              ='" . $tiktok . "',
+                                            WHERE id_proveedor  ='" . $id_proveedor . "'";
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Proveedor ha sido actualizado con Exito.";

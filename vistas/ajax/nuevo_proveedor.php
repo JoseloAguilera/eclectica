@@ -28,6 +28,12 @@ if (empty($_POST['nombre'])) {
     $telefono   = mysqli_real_escape_string($conexion, (strip_tags($_POST["telefono"], ENT_QUOTES)));
     $estado     = intval($_POST['estado']);
     $date_added = date("Y-m-d H:i:s");
+    //cambios
+    $facebook   = mysqli_real_escape_string($conexion, (strip_tags($_POST["facebook"], ENT_QUOTES)));
+    $instagram  = mysqli_real_escape_string($conexion, (strip_tags($_POST["instagram"], ENT_QUOTES)));
+    $twitter    = mysqli_real_escape_string($conexion, (strip_tags($_POST["twitter"], ENT_QUOTES)));
+    $tiktok     = mysqli_real_escape_string($conexion, (strip_tags($_POST["tiktok"], ENT_QUOTES)));
+    // hasta aca
     // check if user or email address already exists
     $sql                   = "SELECT * FROM proveedores WHERE fiscal_proveedor ='" . $fiscal . "';";
     $query_check_user_name = mysqli_query($conexion, $sql);
@@ -36,7 +42,7 @@ if (empty($_POST['nombre'])) {
         $errors[] = "Lo sentimos , el documento ó la dirección de correo electrónico ya está en uso.";
     } else {
         // write new user's data into database
-        $sql              = "INSERT INTO proveedores (nombre_proveedor, fiscal_proveedor, web_proveedor, direccion_proveedor, contacto_proveedor, email_proveedor, telefono_proveedor, date_added, estado_proveedor) VALUES ('$nombre','$fiscal','$web','$direccion','$contacto','$email','$telefono','$date_added','$estado')";
+        $sql              = "INSERT INTO proveedores (nombre_proveedor, fiscal_proveedor, web_proveedor, direccion_proveedor, contacto_proveedor, email_proveedor, telefono_proveedor, date_added, estado_proveedor, facebook, instagram, twitter, tiktok) VALUES ('$nombre','$fiscal','$web','$direccion','$contacto','$email','$telefono','$date_added','$estado', '$facebook', '$instagram', '$twitter', '$tiktok')";
         $query_new_insert = mysqli_query($conexion, $sql);
         if ($query_new_insert) {
             $messages[] = "Proveedor ha sido ingresado con Exito.";
