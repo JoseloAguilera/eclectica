@@ -103,10 +103,10 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $telefono_proveedor; ?>" id="telefono_proveedor<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $estado_proveedor; ?>" id="estado_proveedor<?php echo $id_proveedor; ?>">
 
-                    <input type="hidden" value="<?php echo $facebook; ?>"   id="facebook<?php echo $facebook; ?>">
-                    <input type="hidden" value="<?php echo $instagram; ?>"  id="instagram<?php echo $instagram; ?>">
-                    <input type="hidden" value="<?php echo $twitter; ?>"    id="twitter<?php echo $twitter; ?>">
-                    <input type="hidden" value="<?php echo $tiktok; ?>"     id="tiktok<?php echo $tiktok; ?>">
+                    <input type="hidden" value="<?php echo $facebook; ?>"   id="facebook<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $instagram; ?>"  id="instagram<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $twitter; ?>"    id="twitter<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $tiktok; ?>"     id="tiktok<?php echo $id_proveedor; ?>">
 
                     <tr>
                     <td><span class="badge badge-purple"><?php echo $id_proveedor; ?></span></td>

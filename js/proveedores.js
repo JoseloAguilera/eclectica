@@ -4,6 +4,7 @@
 
 		function load(page) {
 		    var q = $("#q").val();
+			
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
 		        url: '../ajax/buscar_proveedor.php?action=ajax&page=' + page + '&q=' + q,
@@ -18,6 +19,7 @@
 		            });
 		        }
 		    })
+			
 		}
 		$("#guardar_proveedor").submit(function(event) {
 		    $('#guardar_datos').attr("disabled", true);
@@ -49,6 +51,7 @@
 		$("#editar_proveedor").submit(function(event) {
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
+			console.log(parametros);
 		    $.ajax({
 		        type: "POST",
 		        url: "../ajax/editar_proveedor.php",
@@ -127,7 +130,8 @@
 		    $("#mod_instagram").val(instagram);
 		    $("#mod_twitter").val(twitter);
 		    $("#mod_tiktok").val(tiktok);
+			
 
-			console.log(facebook)
+			
 		}
 		

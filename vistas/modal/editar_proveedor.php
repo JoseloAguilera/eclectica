@@ -103,16 +103,16 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="facebook" class="control-label">Facebook:</label>
-											<input type="text" class="form-control" id="facebok" name="facebook" autocomplete="off">
+											<label for="mod_facebook" class="control-label">Facebook:</label>
+											<input type="text" class="form-control" id="mod_facebook" name="mod_facebook" autocomplete="off">
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="instagram" class="control-label">Instagram:</label>
-											<input type="text" class="form-control" id="instagram" name="instagram" autocomplete="off">
+											<label for="mod_instagram" class="control-label">Instagram:</label>
+											<input type="text" class="form-control" id="mod_instagram" name="mod_instagram" autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -120,15 +120,15 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="twitter" class="control-label">Twitter:</label>
-											<input type="text" class="form-control" id="twitter" name="twitter" autocomplete="off">
+											<label for="mod_twitter" class="control-label">Twitter:</label>
+											<input type="text" class="form-control" id="mod_twitter" name="mod_twitter" autocomplete="off">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="tiktok" class="control-label">Tiktok:</label>
-											<input type="text" class="form-control" id="tiktok" name="tiktok" autocomplete="off">
+											<label for="mod_tiktok" class="control-label">Tiktok:</label>
+											<input type="text" class="form-control" id="mod_tiktok" name="mod_tiktok" autocomplete="off">
 										</div>
 									</div>
 								</div>

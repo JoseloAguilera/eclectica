@@ -115,4 +115,5 @@
 		    $("#mod_direccion").val(direccion_cliente);
 		    $("#mod_estado").val(status_cliente);
 		    $("#mod_id").val(id);
+			console.log(id)
 		}

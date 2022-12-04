@@ -40,8 +40,9 @@ if (empty($_POST['mod_id'])) {
                                             facebook            ='" . $facebook . "',
                                             instagram           ='" . $instagram . "',
                                             twitter             ='" . $twitter . "',
-                                            tiktok              ='" . $tiktok . "',
+                                            tiktok              ='" . $tiktok . "'
                                             WHERE id_proveedor  ='" . $id_proveedor . "'";
+    //echo $sql;
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Proveedor ha sido actualizado con Exito.";
