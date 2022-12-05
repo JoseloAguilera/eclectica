@@ -80,8 +80,7 @@ if (isset($conexion)) {
 											<div class="row">
 												<div class="col-md-3">
 													<label for="mod_hijos" class="control-label">Tiene Hijos</label>
-													
-													<input name="mod_hijos" type="checkbox" value="S" id="mod_hijos" class="check_ver" />
+													<input name="mod_hijos" type="checkbox" id="mod_hijos" class="check_ver" />
 												</div>
 												<div class="col-md-4">
 													<label for="mod_pareja" class="control-label">Tiene Pareja</label>

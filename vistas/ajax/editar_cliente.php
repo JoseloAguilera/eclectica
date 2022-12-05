@@ -37,13 +37,19 @@ if (empty($_POST['mod_id'])) {
     $fec_nacimiento = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_fec_nacimiento"], ENT_QUOTES)));
     $ciudad = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_ciudad"], ENT_QUOTES)));
     $canal_comunicacion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_canal_comunicacion"], ENT_QUOTES)));
-    $hijos = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_hijos"], ENT_QUOTES)));
+    if(isset($_POST['mod_hijos'])){
+        $hijos = "S";
+    }else{
+        $hijos = "N";
+    }
+    /* $hijos = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_hijos"], ENT_QUOTES))); */
+    
     $pareja = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_pareja"], ENT_QUOTES)));
     $int_mayorista = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_int_mayorista"], ENT_QUOTES)));
     $estado    = intval($_POST['mod_estado']);
 
     $id_cliente = intval($_POST['mod_id']);
-    echo $hijos;
+  
     $sql        = "UPDATE clientes SET nombre_cliente='" . $nombre . "',
                                         fiscal_cliente='" . $fiscal . "',
                                         telefono_cliente='" . $telefono . "',

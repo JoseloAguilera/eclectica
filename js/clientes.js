@@ -101,6 +101,10 @@
 		    event.preventDefault();
 		});
 
+
+
+		let botonHijos = document.querySelector("#mod_hijos");
+
 		function obtener_datos(id) {
 		    var nombre_cliente = $("#nombre_cliente" + id).val();
 		    var fiscal_cliente = $("#fiscal_cliente" + id).val();
@@ -133,7 +137,12 @@
 		    $("#mod_fec_nacimiento").val(fec_nacimiento);
 		    $("#mod_ciudad").val(ciudad);
 		    $("#mod_canal_comunicacion").val(canal_comunicacion);
-		    $("#mod_hijos").val(hijos);
+			if(hijos == 'N'){
+				botonHijos.checked = false
+			}else{
+				botonHijos.checked = true;
+			}
+		    /* $("#mod_hijos").val(hijos); */
 		    $("#mod_pareja").val(pareja);
 		    $("#mod_int_mayorista").val(int_mayorista);
 			
