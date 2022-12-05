@@ -43,6 +43,7 @@ if (empty($_POST['mod_id'])) {
     $estado    = intval($_POST['mod_estado']);
 
     $id_cliente = intval($_POST['mod_id']);
+    echo $hijos;
     $sql        = "UPDATE clientes SET nombre_cliente='" . $nombre . "',
                                         fiscal_cliente='" . $fiscal . "',
                                         telefono_cliente='" . $telefono . "',
@@ -60,7 +61,7 @@ if (empty($_POST['mod_id'])) {
                                         int_mayorista='" . $int_mayorista . "',
                                         status_cliente='" . $estado . "'
                                         WHERE id_cliente='" . $id_cliente . "'";
-    //echo $sql;
+    echo $sql;
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Cliente ha sido actualizado con Exito.";

@@ -136,5 +136,5 @@
 		    $("#mod_hijos").val(hijos);
 		    $("#mod_pareja").val(pareja);
 		    $("#mod_int_mayorista").val(int_mayorista);
-			//console.log(ciudad, hijos)
+			
 		}
