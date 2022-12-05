@@ -30,7 +30,7 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="nombre_cliente" class="control-label">Razón Social:</label>
-											<input type="text" class="form-control UpperCase" id="nombre" name="nombre_cliente" autocomplete="off" required>
+											<input type="text" class="form-control UpperCase" id="nombre_cliente" name="nombre_cliente" autocomplete="off" required>
 										</div>
 									</div>
 								</div>
@@ -38,13 +38,13 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="fiscal_cliente" class="control-label">RUC:</label>
-											<input type="text" class="form-control" id="fiscal" name="fiscal_cliente" autocomplete="off" required>
+											<input type="text" class="form-control" id="fiscal_cliente" name="fiscal_cliente" autocomplete="off" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="telefono_cliente" class="control-label">Telefono:</label>
-											<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente" autocomplete="off">
+											<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente" autocomplete="off" required>
 										</div>
 									</div>
 								</div>
@@ -53,15 +53,51 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="direccion_cliente" class="control-label">Dirección:</label>
-											<textarea class="form-control UpperCase"  id="direccion_cliente" name="direccion_cliente" maxlength="255" autocomplete="off"></textarea>
+											<textarea class="form-control UpperCase"  id="direccion_cliente" name="direccion_cliente" maxlength="255" autocomplete="off" required></textarea>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="fec_nacimiento" class="control-label">Nacimiento</label>
+											<input type="date" class="form-control UpperCase" id="fec_nacimiento" name="fec_nacimiento" autocomplete="off">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="ciudad" class="control-label">Ciudad:</label>
+											<select class="form-control" id="ciudad" name="ciudad" >
+												<option value="">-- Selecciona --</option>
+												<option value="CDE" selected>CDE</option>
+												<option value="ASUNCION">Asuncion</option>
+											</select>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-								<div class="col-md-6">
+									<div class="col-md-3">
+										<label for="hijos" class="control-label">Tiene Hijos</label>
+										<input type="hidden" name="hijos" value="N" />
+										<input name="hijos" type="checkbox" value="S" id="hijos" class="check_ver" /> 
+									</div>
+									<div class="col-md-4">
+										<label for="pareja" class="control-label">Tiene Pareja</label>
+										<input type="hidden" name="pareja" value="N" />
+										<input name="pareja" type="checkbox" value="S" id="pareja" class="check_ver" />
+									</div>
+									<div class="col-md-5">
+										<label for="int_mayorista" class="control-label">Interés Mayorista</label>
+										<input type="hidden" name="int_mayorista" value="N" />
+										<input name="int_mayorista" type="checkbox" value="S" id="int_mayorista" class="check_ver" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="email_cliente" class="control-label">Email:</label>
-											<input type="email_cliente" class="form-control" id="email_cliente" name="email_cliente" autocomplete="off">
+											<input type="email_cliente" class="form-control" id="email_cliente" name="email_cliente" autocomplete="off" required>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -77,34 +113,9 @@ if (isset($conexion)) {
 									
 								</div>
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label for="fec_nacimiento" class="control-label">Nacimiento</label>
-											<input type="date" class="form-control UpperCase" id="fec_nacimiento" name="fec_nacimiento" autocomplete="off" required>
-										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="ciudad" class="control-label">Ciudad:</label>
-											<select class="form-control" id="ciudad" name="ciudad" required>
-												<option value="">-- Selecciona --</option>
-												<option value="CDE" selected>CDE</option>
-												<option value="ASUNCION">Asuncion</option>
-											</select>
-										</div>
-									</div>
-									
-								</div>
-
 							</div>
 
 							<div class="tab-pane fade" id="contacto">
-
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -137,6 +148,21 @@ if (isset($conexion)) {
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="canal_comunicacion" class="control-label">Canal de Comunicación:</label>
+											<select class="form-control" id="canal_comunicacion" name="canal_comunicacion" required>
+												<option value="">-- Selecciona --</option>
+												<option value="WHATSAPP" selected>Whatsapp</option>
+												<option value="FACEBOOK">Facebook</option>
+											</select>
+										</div>
+									</div>
+									
+								</div>
+
+								
 
 							</div>
 						</div>

@@ -108,6 +108,17 @@
 		    var email_cliente = $("#email_cliente" + id).val();
 		    var direccion_cliente = $("#direccion_cliente" + id).val();
 		    var status_cliente = $("#status_cliente" + id).val();
+		    var facebook = $("#facebook" + id).val();
+		    var instagram = $("#instagram" + id).val();
+		    var twitter = $("#twitter" + id).val();
+		    var tiktok = $("#tiktok" + id).val();
+		    var fec_nacimiento = $("#fec_nacimiento" + id).val();
+		    var ciudad = $("#ciudad" + id).val();
+		    var canal_comunicacion = $("#canal_comunicacion" + id).val();
+		    var hijos = $("#hijos" + id).val();
+		    var pareja = $("#pareja" + id).val();
+		    var int_mayorista = $("#int_mayorista" + id).val();
+			 
 		    $("#mod_nombre").val(nombre_cliente);
 		    $("#mod_fiscal").val(fiscal_cliente);
 		    $("#mod_telefono").val(telefono_cliente);
@@ -115,5 +126,15 @@
 		    $("#mod_direccion").val(direccion_cliente);
 		    $("#mod_estado").val(status_cliente);
 		    $("#mod_id").val(id);
-			console.log(id)
+		    $("#mod_facebook").val(facebook);
+		    $("#mod_instagram").val(instagram);
+		    $("#mod_twitter").val(twitter);
+		    $("#mod_tiktok").val(tiktok);
+		    $("#mod_fec_nacimiento").val(fec_nacimiento);
+		    $("#mod_ciudad").val(ciudad);
+		    $("#mod_canal_comunicacion").val(canal_comunicacion);
+		    $("#mod_hijos").val(hijos);
+		    $("#mod_pareja").val(pareja);
+		    $("#mod_int_mayorista").val(int_mayorista);
+			//console.log(ciudad, hijos)
 		}

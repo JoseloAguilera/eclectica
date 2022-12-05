@@ -4,7 +4,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 if (empty($_POST['nombre'])) {
     $errors[] = "Nombre vacío";
 } else if (empty($_POST['fiscal'])) {
-    $errors[] = "# Fiscal vacío";
+    $errors[] = "Fiscal vacío";
 } else if (empty($_POST['contacto'])) {
     $errors[] = "Contacto vacío";
 } else if ($_POST['estado'] == "") {

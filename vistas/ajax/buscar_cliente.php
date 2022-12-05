@@ -60,18 +60,19 @@ if ($action == 'ajax') {
                     <th>RUC | CEDULA</th>
                     <th>Teléfono</th>
                     <th>Email</th>
-                    <th>Estado</th>
-
+                    <th>Nacimiento</th>
+                    <th>Ciudad</th>
+                   
                     <th>Facebook</th>
                     <th>Instagram</th>
                     <th>Twitter</th>
                     <th>Tiktok</th>
-                    <th>Nacimiento</th>
-                    <th>Ciudad</th>
+                    
                     <th>Canal</th>
                     <th>Hijos</th>
                     <th>Pareja</th>
                     <th>Mayorista</th>
+                    <th>Estado</th>
 
                     <th>Agregado</th>
                     <th class='text-right'>Acciones</th>
@@ -110,19 +111,21 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $fiscal_cliente; ?>" id="fiscal_cliente<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $telefono_cliente; ?>" id="telefono_cliente<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $email_cliente; ?>" id="email_cliente<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $fec_nacimiento; ?>" id="fec_nacimiento<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $ciudad; ?>" id="ciudad<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $direccion_cliente; ?>" id="direccion_cliente<?php echo $id_cliente; ?>">
-                    <input type="hidden" value="<?php echo $status_cliente; ?>" id="status_cliente<?php echo $id_cliente; ?>">
+                    
 
-                    <input type="hidden" value="<?php echo $facebook; ?>" id="facebook<?php echo $facebook; ?>">
-                    <input type="hidden" value="<?php echo $instagram; ?>" id="instagram<?php echo $instagram; ?>">
-                    <input type="hidden" value="<?php echo $twitter; ?>" id="twitter<?php echo $twitter; ?>">
-                    <input type="hidden" value="<?php echo $tiktok; ?>" id="tiktok<?php echo $tiktok; ?>">
-                    <input type="hidden" value="<?php echo $fec_nacimiento; ?>" id="fec_nacimiento<?php echo $fec_nacimiento; ?>">
-                    <input type="hidden" value="<?php echo $ciudad; ?>" id="ciudad<?php echo $ciudad; ?>">
-                    <input type="hidden" value="<?php echo $canal_comunicacion; ?>" id="canal_comunicacion<?php echo $canal_comunicacion; ?>">
-                    <input type="hidden" value="<?php echo $hijos; ?>" id="hijos<?php echo $hijos; ?>">
-                    <input type="hidden" value="<?php echo $pareja; ?>" id="pareja<?php echo $pareja; ?>">
-                    <input type="hidden" value="<?php echo $int_mayorista; ?>" id="int_mayorista<?php echo $int_mayorista; ?>">
+                    <input type="hidden" value="<?php echo $facebook; ?>" id="facebook<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $instagram; ?>" id="instagram<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $twitter; ?>" id="twitter<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $tiktok; ?>" id="tiktok<?php echo $id_cliente; ?>">
+                    
+                    <input type="hidden" value="<?php echo $canal_comunicacion; ?>" id="canal_comunicacion<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $hijos; ?>" id="hijos<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $pareja; ?>" id="pareja<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $status_cliente; ?>" id="status_cliente<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $int_mayorista; ?>" id="int_mayorista<?php echo $id_cliente; ?>">
 
 
 
@@ -132,20 +135,21 @@ while ($row = mysqli_fetch_array($query)) {
                         <td><?php echo $fiscal_cliente; ?></td>
                         <td ><?php echo $telefono_cliente; ?></td>
                         <td><?php echo $email_cliente; ?></td>
-                        <td><?php echo $estado; ?></td>
+                        <td><?php echo $fec_nacimiento; ?></td>
+                        <td><?php echo $ciudad; ?></td>
+                        
 
                         <td><?php echo $facebook; ?></td>
                         <td><?php echo $instagram; ?></td>
                         <td><?php echo $twitter; ?></td>
                         <td><?php echo $tiktok; ?></td>
-                        <td><?php echo $fec_nacimiento; ?></td>
-                        <td><?php echo $ciudad; ?></td>
+                       
                         <td><?php echo $canal_comunicacion; ?></td>
                         <td><?php echo $hijos; ?></td>
                         <td><?php echo $pareja; ?></td>
                         <td><?php echo $int_mayorista; ?></td>
 
-
+                        <td><?php echo $estado; ?></td>
                         <td><?php echo $date_added; ?></td>
 
                         <td >
