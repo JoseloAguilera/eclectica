@@ -84,13 +84,13 @@ if (isset($conexion)) {
 												</div>
 												<div class="col-md-4">
 													<label for="mod_pareja" class="control-label">Tiene Pareja</label>
-													<input type="hidden" name="mod_pareja" value="N" />
-													<input name="mod_pareja" type="checkbox" value="S" id="mod_pareja" class="check_ver" />
+													
+													<input name="mod_pareja" type="checkbox" id="mod_pareja" class="check_ver" />
 												</div>
 												<div class="col-md-5">
 													<label for="mod_int_mayorista" class="control-label">Interés Mayorista</label>
-													<input type="hidden" name="mod_int_mayorista" value="N" />
-													<input name="mod_int_mayorista" type="checkbox" value="S" id="mod_int_mayorista" class="check_ver" />
+													
+													<input name="mod_int_mayorista" type="checkbox" id="mod_int_mayorista" class="check_ver" />
 												</div>
 											</div>
 

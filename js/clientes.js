@@ -104,6 +104,8 @@
 
 
 		let botonHijos = document.querySelector("#mod_hijos");
+		let botonPareja = document.querySelector("#mod_pareja");
+		let botonMayorista = document.querySelector("#mod_int_mayorista");
 
 		function obtener_datos(id) {
 		    var nombre_cliente = $("#nombre_cliente" + id).val();
@@ -142,8 +144,18 @@
 			}else{
 				botonHijos.checked = true;
 			}
+			if(pareja == 'N'){
+				botonPareja.checked = false
+			}else{
+				botonPareja.checked = true;
+			}
+			if(int_mayorista == 'N'){
+				botonMayorista.checked = false
+			}else{
+				botonMayorista.checked = true;
+			}
 		    /* $("#mod_hijos").val(hijos); */
-		    $("#mod_pareja").val(pareja);
-		    $("#mod_int_mayorista").val(int_mayorista);
+		    /*$("#mod_pareja").val(pareja);
+		    $("#mod_int_mayorista").val(int_mayorista);*/
 			
 		}

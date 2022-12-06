@@ -42,12 +42,20 @@ if (empty($_POST['mod_id'])) {
     }else{
         $hijos = "N";
     }
-    /* $hijos = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_hijos"], ENT_QUOTES))); */
-    
+    if(isset($_POST['mod_pareja'])){
+        $pareja = "S";
+    }else{
+        $pareja = "N";
+    }
+    if(isset($_POST['mod_int_mayorista'])){
+        $int_mayorista = "S";
+    }else{
+        $int_mayorista = "N";
+    }
+    /* $hijos = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_hijos"], ENT_QUOTES))); 
     $pareja = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_pareja"], ENT_QUOTES)));
-    $int_mayorista = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_int_mayorista"], ENT_QUOTES)));
+    $int_mayorista = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_int_mayorista"], ENT_QUOTES)));*/
     $estado    = intval($_POST['mod_estado']);
-
     $id_cliente = intval($_POST['mod_id']);
   
     $sql        = "UPDATE clientes SET nombre_cliente='" . $nombre . "',
@@ -67,7 +75,7 @@ if (empty($_POST['mod_id'])) {
                                         int_mayorista='" . $int_mayorista . "',
                                         status_cliente='" . $estado . "'
                                         WHERE id_cliente='" . $id_cliente . "'";
-    echo $sql;
+    //echo $sql;
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Cliente ha sido actualizado con Exito.";
