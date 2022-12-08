@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_array($query)) {
         <td><span class="badge badge-purple"><?php echo $id_egreso; ?></span></td>
         <td><?php echo $referencia_egreso; ?></td>
         <td><?php echo $descripcion_egreso; ?></td>
-        <td><?php echo $id_moneda . '' . number_format($monto, 2); ?></td>
+        <td><?php echo $id_moneda . '' . number_format($monto, 0, "", "."); ?></td>
         <td><?php echo $date_added; ?></td>
 
         <td >

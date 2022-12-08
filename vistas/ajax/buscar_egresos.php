@@ -104,7 +104,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <td><?php echo $proveedor; ?></td>
                     <td><?php echo $nro_comprobante; ?></td>
                     <td><?php echo $medio_pago; ?></td>
-                    <td><?php echo $importe; ?></td>
+                    <td><?php echo number_format($importe, 0, "", "."); ?></td>
                     <td><?php echo $estado; ?></td>
 
                     <td >

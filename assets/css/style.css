@@ -224,11 +224,12 @@ body.fixed-left .side-menu.left {
     border-left: 3px solid #039cfd; }
 
 #sidebar-menu > ul > li > a {
-  color: #343c49;
+  color: blue;
   display: block;
   padding: 12px 20px;
   margin: 4px 0;
-  border-left: 3px solid #ffffff; }
+  border-left: 3px solid #ffffff;
+  }
   #sidebar-menu > ul > li > a:hover {
     color: #039cfd;
     text-decoration: none; }
@@ -604,7 +605,7 @@ body.fixed-left .side-menu.left {
 body {
   background: #f5f5f5;
   margin: 0;
-  color: #0552d3;
+  color: rebeccapurple;
   overflow-x: hidden !important;
   }
 

@@ -266,7 +266,7 @@ body.fixed-left {
       }
       li.active {
         a {
-          color: $primary;
+          color: #FB8532 !important;
         }
       }
       a {
@@ -276,7 +276,7 @@ body.fixed-left {
         font-size: 0.95rem;
 
         &:hover {
-          color: $primary;
+          color: #FB8532 !important;
         }
         i {
           margin-right: 5px;
@@ -294,18 +294,19 @@ body.fixed-left {
   }
   .subdrop {
     background: $light5 !important;
-    border-left: 3px solid $primary;
+    border-left: 3px solid #FB8532 !important;
   }
 }
 
 #sidebar-menu > ul > li > a {
-  color: $dark;
+  color: black;
   display: block;
   padding: 12px 20px;
   margin: 4px 0;
   border-left: 3px solid $white;
-  &:hover {
-    color: $primary;
+  &
+  hover {
+    color: #FB8532 !important;
     text-decoration: none;
   }
 }
@@ -373,7 +374,7 @@ body.fixed-left {
 
 #sidebar-menu > ul > li > a.active {
   background: $light5 !important;
-  border-left: 3px solid $primary;
+  border-left: 3px solid #FB8532 !important;
 }
 
 .menu-title {
