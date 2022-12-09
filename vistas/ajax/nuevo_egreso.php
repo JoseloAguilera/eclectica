@@ -1,6 +1,7 @@
 <?php
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
+$user_id = $_SESSION['id_users'];
 if (empty($_POST['fecha'])) {
     $errors[] = "Inserte fecha";
 } else if (empty($_POST['cuenta_contable'])) {
@@ -28,16 +29,17 @@ if (empty($_POST['fecha'])) {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $fecha_str              = strtotime($_POST["fecha"]);
     $fecha                  = date("Y-m-d", $fecha_str);
-    $cuenta_contable        = intval($_POST['cuenta_contable']);
+    $cuenta_contable        = mysqli_real_escape_string($conexion, (strip_tags($_POST["cuenta_contable"], ENT_QUOTES)));
     $proveedor              = intval($_POST['proveedor']);
     $concepto               = mysqli_real_escape_string($conexion, (strip_tags($_POST["concepto"], ENT_QUOTES)));
     $nro_comprobante        = mysqli_real_escape_string($conexion, (strip_tags($_POST["nro_comprobante"], ENT_QUOTES)));
     $medio_pago             = mysqli_real_escape_string($conexion, (strip_tags($_POST["medio_pago"], ENT_QUOTES)));
     $importe                = $_POST["importe"];
    
+    echo $medio_pago;
     // write new user's data into database
-    $sql              = "INSERT INTO egresos (fecha, cuenta_contable, proveedor, concepto, nro_comprobante, medio_pago, importe) 
-                        VALUES ('$fecha','$cuenta_contable','$proveedor','$concepto','$nro_comprobante','$medio_pago','$importe')";
+    $sql              = "INSERT INTO egresos (fecha, cuenta_contable, proveedor, concepto, nro_comprobante, medio_pago, importe, users) 
+                        VALUES ('$fecha','$cuenta_contable','$proveedor','$concepto','$nro_comprobante','$medio_pago','$importe', '$user_id')";
     $query_new_insert = mysqli_query($conexion, $sql);
     if ($query_new_insert) {
         $messages[] = "Egreso ha sido ingresado con Exito.";

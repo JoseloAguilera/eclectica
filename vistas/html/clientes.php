@@ -64,7 +64,7 @@ if ($permisos_editar == 1) {
 									<div class="form-group row">
 											<div class="col-md-4">
 													<div class="input-group">
-														<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre | RUC | CI" onkeyup='load(1);' autocomplete="off">
+														<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre | RUC | CI | CIUD" onkeyup='load(1);' autocomplete="off">
 														<span class="input-group-btn">
 															<button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" onclick='load(1);'>
 																<span class="fa fa-search" ></span></button>
