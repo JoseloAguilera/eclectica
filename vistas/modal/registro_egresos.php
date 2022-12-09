@@ -27,8 +27,9 @@ if (isset($conexion)) {
 											<label for="cuenta_contable" class="control-label">Cta Contable</label>
 											<select class="form-control" id="cuenta_contable" name="cuenta_contable" required>
 												<option value="">-- Selecciona --</option>
-												<option value="1" selected>a</option>
-												<option value="0">b</option>
+												<option value="1" selected>Pago de Salarios</option>
+												<option value="2">Compra de Insumos</option>
+												<option value="3">Pago de Impuestos</option>
 											</select>
 										</div>
 									</div>
@@ -74,16 +75,12 @@ if (isset($conexion)) {
 
 								<div class="row">
 									
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="form-group">
 											<label for="medio_pago" class="control-label">Medio de Pago:</label>
-											<select class="form-control" id="medio_pago" name="medio_pago" required>
-												<option value="">-- Selecciona --</option>
-												<option value="efectivo" selected>Efectivo</option>
-												<option value="transferencias">Transferencia Bancaria</option>
-												<option value="tarjeta debito">Tarjeta de Débito</option>
-												<option value="tarjeta credito">Tarjeta de Crédito</option>
-											</select>
+											<input type="radio" name="group" value="1"> Efectivo
+											<input type="radio" name="group" value="2"> Transferencia
+											<input type="radio" name="group" value="3"> Cheques
 										</div>
 										
 									</div>

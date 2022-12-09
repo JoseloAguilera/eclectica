@@ -47,6 +47,7 @@ if ($action == 'ajax') {
     $reload      = '../html/egresos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -84,7 +85,13 @@ while ($row = mysqli_fetch_array($query)) {
             } else {
                 $estado = "<span class='badge badge-danger'>Inactivo</span>";
             }
+            //Obtener descripcion del proveedor
+            $sql_prov = "Select nombre_proveedor from proveedores where id_proveedor = $proveedor";
+            $query_prov = mysqli_query($conexion, $sql_prov);
+            $row_prov = mysqli_fetch_array($query_prov);
+            $desc_proveedor = $row_prov['nombre_proveedor'];
 
+            
             ?>
                     <input type="hidden" value="<?php echo $id_egreso; ?>" id="id_egreso<?php echo $id_egreso; ?>">
                     <input type="hidden" value="<?php echo  $fecha; ?>" id="fecha<?php echo  $fecha; ?>">
@@ -101,7 +108,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <td><?php echo $fecha; ?></td>
                     <td><?php echo $cuenta_contable; ?></td>
                     <td><?php echo $concepto; ?></td>
-                    <td><?php echo $proveedor; ?></td>
+                    <td><?php echo $desc_proveedor; ?></td>
                     <td><?php echo $nro_comprobante; ?></td>
                     <td><?php echo $medio_pago; ?></td>
                     <td><?php echo number_format($importe, 0, "", "."); ?></td>

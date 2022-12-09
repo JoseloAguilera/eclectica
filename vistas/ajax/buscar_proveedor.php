@@ -57,15 +57,9 @@ if ($action == 'ajax') {
                 <tr  class="info">
                     <th>ID</th>
                     <th>Razón Social</th>
-                    <th>RUC</th>
-                    <th>Dirección</th>
                     <th>Teléfono</th>
-
-                    <th>Facebook</th>
-                    <th>Instagram</th>
-                    <th>Twitter</th>
-                    <th>Tiktok</th>
-                
+                    <th>Rubro</th>
+                    <th>Especialidad</th>
                     <th>Estado</th>
                     <th class='text-right'>Acciones</th>
 
@@ -92,6 +86,8 @@ while ($row = mysqli_fetch_array($query)) {
             $instagram           = $row['instagram'];
             $twitter             = $row['twitter'];
             $tiktok              = $row['tiktok'];
+            $rubro               = $row['rubro'];
+            $especialidad        = $row['especialidad'];
 
             ?>
                     <input type="hidden" value="<?php echo $nombre_proveedor; ?>" id="nombre_proveedor<?php echo $id_proveedor; ?>">
@@ -107,27 +103,25 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $instagram; ?>"  id="instagram<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $twitter; ?>"    id="twitter<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $tiktok; ?>"     id="tiktok<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $rubro; ?>"     id="rubro<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $especialidad; ?>"     id="especialidad<?php echo $id_proveedor; ?>">
 
                     <tr>
                     <td><span class="badge badge-purple"><?php echo $id_proveedor; ?></span></td>
                         <td>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="
-                            Información de  Contacto<br>
-                            <i class='glyphicon glyphicon-user'></i> <?php echo $contacto_proveedor; ?><br>
-                            <i class='glyphicon glyphicon-phone'></i> <?php echo $telefono_proveedor; ?><br>
-                            <i class='glyphicon glyphicon-envelope'></i> <?php echo $email_proveedor; ?>">
-                            <?php echo $nombre_proveedor; ?>
-                        </a>
-                    </td>
-                    <td><?php echo $fiscal_proveedor; ?></td>
-                    <td><?php echo $direccion_proveedor; ?></td>
+                                Información de  Contacto<br>
+                                <p>FB <?php echo $facebook; ?><br>
+                                IG <?php echo $instagram; ?><br>
+                                TW <?php echo $twitter; ?><br>
+                                RUC <?php echo $fiscal_proveedor; ?><br>
+                                Dirección <?php echo $direccion_proveedor; ?></p><br>">
+                                <?php echo $nombre_proveedor; ?>
+                            </a>
+                        </td>
                     <td><?php echo $telefono_proveedor; ?></td>
-
-                    <td><?php echo $facebook; ?></td>
-                    <td><?php echo $instagram; ?></td>
-                    <td><?php echo $twitter; ?></td>
-                    <td><?php echo $tiktok; ?></td>
-
+                    <td><?php echo $rubro; ?></td>
+                    <td><?php echo $especialidad; ?></td>
                     <td><?php echo $estado; ?></td>
 
                     <td >
@@ -175,3 +169,5 @@ echo paginate($reload, $page, $total_pages, $adjacents);
 // fin else
 }
 ?>
+
+
