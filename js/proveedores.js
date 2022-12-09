@@ -105,6 +105,7 @@
 		});
 
 		function obtener_datos(id) {
+			console.log("hola")
 		    var nombre_proveedor = $("#nombre_proveedor" + id).val();
 		    var fiscal_proveedor = $("#fiscal_proveedor" + id).val();
 		    var web_proveedor = $("#web_proveedor" + id).val();
@@ -117,6 +118,8 @@
 		    var instagram = $("#instagram" + id).val();
 		    var twitter = $("#twitter" + id).val();
 		    var tiktok = $("#tiktok" + id).val();
+		    var rubro = $("#rubro" + id).val();
+		    var especialidad = $("#especialidad" + id).val();
 		    $("#mod_nombre").val(nombre_proveedor);
 		    $("#mod_fiscal").val(fiscal_proveedor);
 		    $("#mod_web").val(web_proveedor);
@@ -130,7 +133,8 @@
 		    $("#mod_instagram").val(instagram);
 		    $("#mod_twitter").val(twitter);
 		    $("#mod_tiktok").val(tiktok);
-			
+			$("#mod_rubro").val(rubro);
+			$("#mod_especialidad").val(especialidad);
 
 			
 		}

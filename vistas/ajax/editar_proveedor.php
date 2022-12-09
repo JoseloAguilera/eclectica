@@ -27,6 +27,8 @@ if (empty($_POST['mod_id'])) {
     $instagram = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_instagram"], ENT_QUOTES)));
     $twitter   = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_twitter"], ENT_QUOTES)));
     $tiktok    = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_tiktok"], ENT_QUOTES)));
+    $rubro     = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_rubro"], ENT_QUOTES)));
+    $especialidad= mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_especialidad"], ENT_QUOTES)));
     $estado    = intval($_POST['mod_estado']);
 
     $id_proveedor = intval($_POST['mod_id']);
@@ -40,7 +42,10 @@ if (empty($_POST['mod_id'])) {
                                             facebook            ='" . $facebook . "',
                                             instagram           ='" . $instagram . "',
                                             twitter             ='" . $twitter . "',
-                                            tiktok              ='" . $tiktok . "'
+                                            tiktok              ='" . $tiktok . "',
+                                            rubro               ='" . $rubro  . "',
+                                            telefono_proveedor  ='" . $telefono  . "',
+                                            especialidad        ='" . $especialidad  . "'
                                             WHERE id_proveedor  ='" . $id_proveedor . "'";
     //echo $sql;
     $query_update = mysqli_query($conexion, $sql);

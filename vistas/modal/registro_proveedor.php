@@ -88,7 +88,7 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="contacto" class="control-label">Nombre/Contacto:</label>
-											<input type="text" class="form-control UpperCase" id="contacto" name="contacto" autocomplete="off">
+											<input type="text" class="form-control UpperCase" id="contacto" name="contacto" autocomplete="off" required>
 										</div>
 									</div>
 								</div>

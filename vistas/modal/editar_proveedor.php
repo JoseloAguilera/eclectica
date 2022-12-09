@@ -62,6 +62,26 @@ if (isset($conexion)) {
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_rubro" class="control-label">Rubro:</label>
+											<select class="form-control" id="mod_rubro" name="mod_rubro" required placeholder="mod_rubro">
+												<option value="" selected>-- Selecciona --</option>
+												<option value="cuero">Cuero</option>
+												<option value="hilo_encerado">Hilo Encerado</option>
+												<option value="productos_terminados" selected>Prod. Terminados</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_especialidad" class="control-label">Especialidad:</label>
+											<input type="text" class="form-control" id="mod_especialidad" name="mod_especialidad" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
 							</div>
 							<div class="tab-pane fade" id="mod_cont">
 
