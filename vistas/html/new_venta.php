@@ -254,16 +254,16 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 function agregar_cliente(id,nombre,ruc, correo) {
     //var id_cliente = id;
-    //console.log(id);
-	//console.log(nombre);
-	//console.log(ruc);
+    console.log(id);
+	console.log(nombre);
+	console.log(ruc);
 	var id_cliente = String(id);
 	$('#id_cliente').val(id_cliente);
 	$("#nombre_cliente").val(nombre);
 	$('#rnc').val(ruc);
 	$('#buscar_cliente').modal('hide');
 	$.Notification.notify('custom','bottom right','EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
- }
+}
 
 	$(function() {
 		$("#nombre_cliente").autocomplete({
@@ -279,9 +279,10 @@ function agregar_cliente(id,nombre,ruc, correo) {
 		});
 	});
 
-	$("#nombre_cliente" ).on( "keydown", function( event ) {
+	$("#nombre_cliente" ).on("keydown", function( event ) {
 		if (event.keyCode== $.ui.keyCode.LEFT || event.keyCode== $.ui.keyCode.RIGHT || event.keyCode== $.ui.keyCode.UP || event.keyCode== $.ui.keyCode.DOWN || event.keyCode== $.ui.keyCode.DELETE || event.keyCode== $.ui.keyCode.BACKSPACE )
 		{
+			$("#nombre_cliente" ).val("");
 			$("#id_cliente" ).val("");
 			$("#rnc" ).val("");
 			$("#resultados4").load("../ajax/tipo_doc.php");

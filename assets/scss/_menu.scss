@@ -305,8 +305,8 @@ body.fixed-left {
   margin: 4px 0;
   border-left: 3px solid $white;
   &
-  hover {
-    color: #FB8532 !important;
+  :hover {
+    color: #fb8532 !important;
     text-decoration: none;
   }
 }
@@ -479,13 +479,13 @@ body.fixed-left {
       min-height: 52px;
 
       &:hover {
-        background: $light !important;
+        background: #FB8532 !important;
       }
       &:active {
-        background: $light !important;
+        background: #FB8532 !important;
       }
       &:focus {
-        background: $light !important;
+        background: #FB8532 !important;
       }
 
       i {
@@ -509,7 +509,7 @@ body.fixed-left {
           position: relative;
           width: 260px;
           background: $light;
-          color: $primary;
+          color: #FB8532;
           border-color: $primary;
         }
         &:hover > ul {
@@ -526,7 +526,7 @@ body.fixed-left {
             z-index: 6;
 
             &:hover {
-              color: $primary;
+              color: #FB8532;
             }
           }
         }
@@ -553,14 +553,14 @@ body.fixed-left {
             z-index: 6;
 
             &:hover {
-              color: $primary;
+              color: #FB8532;
             }
           }
 
         }
       }
       a.subdrop {
-        color: $primary !important;
+        color: #FB8532 !important;
       }
       ul > li > ul {
         display: none;
@@ -588,7 +588,7 @@ body.fixed-left {
           }
           li.active {
             a {
-              color: $primary;
+              color: #FB8532;
             }
           }
         }

@@ -67,9 +67,9 @@ if (isset($conexion)) {
 											<label for="rubro" class="control-label">Rubro:</label>
 											<select class="form-control" id="rubro" name="rubro" required>
 												<option value="">-- Selecciona --</option>
-												<option value="cuero" selected>Cuero</option>
-												<option value="hilo_encerado">Hilo Encerado</option>
-												<option value="productos_terminados" selected>Prod. Terminados</option>
+												<option value="Cuero" selected>Cuero</option>
+												<option value="Hilo Encerado">Hilo Encerado</option>
+												<option value="Productosd Terminados" selected>Prod. Terminados</option>
 											</select>
 										</div>
 									</div>

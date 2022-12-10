@@ -29,8 +29,8 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="nombre_cliente" class="control-label">Razón Social:</label>
-											<input type="text" class="form-control UpperCase" id="nombre_cliente" name="nombre_cliente" autocomplete="off" required>
+											<label for="nombre" class="control-label">Razón Social:</label>
+											<input type="text" class="form-control UpperCase" id="nombre" name="nombre_cliente" autocomplete="off" required>
 										</div>
 									</div>
 								</div>

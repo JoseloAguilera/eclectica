@@ -38,7 +38,7 @@ if ($login->isUserLoggedIn() == true) {
 
         <link rel="shortcut icon" href="assets/images/favicon.png">
 
-        <title>Facturación v.3</title>
+        <title>Facturación V.1.0</title>
 
         <link href="../plugins/switchery/switchery.min.css" rel="stylesheet" />
 
