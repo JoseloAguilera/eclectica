@@ -19,17 +19,88 @@ permisos($modulo, $cadena_permisos);
 
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
+    $chk_h = ($_GET['chk_hijos']);
+    $chk_p = ($_GET['chk_par']);
+    $chk_m = ($_GET['chk_mayo']);
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('nombre_cliente', 'fiscal_cliente', 'ciudad'); //Columnas de busqueda
     $sTable   = "clientes";
     $sWhere   = "";
-    if ($_GET['q'] != "") {
+
+    if ($_GET['q'] != "" || $chk_h=='true' || $chk_m=='true' || $chk_p=='true') {
         $sWhere = "WHERE (";
-        for ($i = 0; $i < count($aColumns); $i++) {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+        if($chk_h=='true' && $chk_m=='true' && $chk_p=='true'){
+            $sWhere .= "hijos='S' and pareja='S' and int_mayorista='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='true' && $chk_p=='true' && $chk_m=='false'){
+            $sWhere .= "hijos='S' and pareja='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='true' && $chk_p=='false' && $chk_m=='false'){
+            $sWhere .= "hijos='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='false' && $chk_p=='true' && $chk_m=='false'){
+            $sWhere .= "pareja='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='false' && $chk_p=='true' && $chk_m=='true'){
+            $sWhere .= "pareja='S' AND int_mayorista='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='false' && $chk_p=='false' && $chk_m=='true'){
+            $sWhere .= "int_mayorista='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }elseif($chk_h=='true' && $chk_p=='false' && $chk_m=='true'){
+            $sWhere .= "hijos='S' AND int_mayorista='S'";
+            if($_GET['q'] != ""){
+                $sWhere .= " AND ";
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
+        }else{
+            if($_GET['q'] != ""){
+                for ($i = 0; $i < count($aColumns); $i++) {
+                    $sWhere .=  $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+                }
+                $sWhere = substr_replace($sWhere, "", -3);
+            }
         }
-        $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
     }
     $sWhere .= " order by id_cliente desc";

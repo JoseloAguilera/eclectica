@@ -5,8 +5,16 @@
 		function load(page) {
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
+
+			let botonHijos = document.querySelector("#hijos_chk");
+			let botonPareja = document.querySelector("#pareja_chk");
+			let botonMayorista = document.querySelector("#int_mayorista_chk");
+			var chk_h = botonHijos.checked;
+			var chk_p = botonPareja.checked;
+			var chk_m = botonMayorista.checked;
+			
 		    $.ajax({
-		        url: '../ajax/buscar_cliente.php?action=ajax&page=' + page + '&q=' + q,
+		        url: '../ajax/buscar_cliente.php?action=ajax&page=' + page + '&q=' + q + '&chk_hijos=' + chk_h + '&chk_par=' + chk_p+ '&chk_mayo=' + chk_m,
 		        beforeSend: function(objeto) {
 		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },
@@ -159,3 +167,5 @@
 		    $("#mod_int_mayorista").val(int_mayorista);*/
 			
 		}
+
+		

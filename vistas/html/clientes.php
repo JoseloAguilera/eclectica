@@ -74,14 +74,14 @@ if ($permisos_editar == 1) {
 											<div class="col-md-4">
 												<span id="loader"></span>
 												<div class="form-group form-check">
-													<label class="form-check-label" for="hijos">Hijos</label>
-													<input type="checkbox" id="hijos" name="hijos" value="">
+													<label class="form-check-label" for="hijos_chk">Hijos</label>													
+													<input type="checkbox" id="hijos_chk" name="hijos_chk" onclick="load(1);">
 													
-													<label class="form-check-label" for="pareja">Pareja</label>
-													<input type="checkbox"  id="pareja" name="pareja" value="1">
+													<label class="form-check-label" for="pareja_chk">Pareja</label>													
+													<input type="checkbox"  id="pareja_chk" name="pareja_chk" onclick="load(1);">
 
 													<label class="form-check-label" for="int_mayorista">Mayor.</label>
-													<input type="checkbox"  id="int_mayorista" name="int_mayorista" value="1">
+													<input type="checkbox"  id="int_mayorista_chk" name="int_mayorista_chk" onclick="load(1);">
 													
 												</div>
 												
