@@ -63,7 +63,7 @@ if (isset($conexion)) {
 												<div class="col-md-6">
 													<div class="form-group">
 														<label for="mod_fec_nacimiento" class="control-label">Nacimiento</label>
-														<input type="date" class="form-control UpperCase" id="mod_fec_nacimiento" name="mod_fec_nacimiento" autocomplete="off">
+														<input type="date" class="form-control" id="mod_fec_nacimiento" name="mod_fec_nacimiento" autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">

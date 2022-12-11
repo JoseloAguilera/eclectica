@@ -18,7 +18,7 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="fecha" class="control-label">Fecha</label>
-											<input type="date" class="form-control UpperCase" id="fecha" name="fecha" autocomplete="off" required>
+											<input type="date" class="form-control" id="fecha" name="fecha" autocomplete="off" required>
 										</div>
 
 									</div>
