@@ -103,7 +103,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $instagram; ?>"  id="instagram<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $twitter; ?>"    id="twitter<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $tiktok; ?>"     id="tiktok<?php echo $id_proveedor; ?>">
-                    <input type="hidden" value="<?php echo $rubro; ?>"     id="rubro<?php echo $id_proveedor; ?>">
+                    <input type="hidden" value="<?php echo $rubro; ?>"      id="rubro<?php echo $id_proveedor; ?>">
                     <input type="hidden" value="<?php echo $especialidad; ?>"     id="especialidad<?php echo $id_proveedor; ?>">
 
                     <tr>

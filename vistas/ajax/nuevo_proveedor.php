@@ -23,6 +23,8 @@ if (empty($_POST['nombre'])) {
     $fiscal     = mysqli_real_escape_string($conexion, (strip_tags($_POST["fiscal"], ENT_QUOTES)));
     $web        = mysqli_real_escape_string($conexion, (strip_tags($_POST["web"], ENT_QUOTES)));
     $direccion  = mysqli_real_escape_string($conexion, (strip_tags($_POST["direccion"], ENT_QUOTES)));
+    $rubro      = mysqli_real_escape_string($conexion, (strip_tags($_POST["rubro"], ENT_QUOTES)));
+    $especialidad = mysqli_real_escape_string($conexion, (strip_tags($_POST["especialidad"], ENT_QUOTES)));
     $contacto   = mysqli_real_escape_string($conexion, (strip_tags($_POST["contacto"], ENT_QUOTES)));
     $email      = mysqli_real_escape_string($conexion, (strip_tags($_POST["email"], ENT_QUOTES)));
     $telefono   = mysqli_real_escape_string($conexion, (strip_tags($_POST["telefono"], ENT_QUOTES)));
@@ -42,7 +44,8 @@ if (empty($_POST['nombre'])) {
         $errors[] = "Lo sentimos , el documento ó la dirección de correo electrónico ya está en uso.";
     } else {
         // write new user's data into database
-        $sql              = "INSERT INTO proveedores (nombre_proveedor, fiscal_proveedor, web_proveedor, direccion_proveedor, contacto_proveedor, email_proveedor, telefono_proveedor, date_added, estado_proveedor, facebook, instagram, twitter, tiktok) VALUES ('$nombre','$fiscal','$web','$direccion','$contacto','$email','$telefono','$date_added','$estado', '$facebook', '$instagram', '$twitter', '$tiktok')";
+        $sql              = "INSERT INTO proveedores (nombre_proveedor, fiscal_proveedor, web_proveedor, direccion_proveedor, contacto_proveedor, email_proveedor, telefono_proveedor, date_added, estado_proveedor, facebook, instagram, twitter, tiktok, rubro, especialidad) 
+            VALUES ('$nombre','$fiscal','$web','$direccion','$contacto','$email','$telefono','$date_added','$estado', '$facebook', '$instagram', '$twitter', '$tiktok', '$rubro', '$especialidad')";
         $query_new_insert = mysqli_query($conexion, $sql);
         if ($query_new_insert) {
             $messages[] = "Proveedor ha sido ingresado con Exito.";

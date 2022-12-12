@@ -37,6 +37,8 @@ if (empty($_POST['mod_id'])) {
     $fec_nacimiento = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_fec_nacimiento"], ENT_QUOTES)));
     $ciudad = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_ciudad"], ENT_QUOTES)));
     $canal_comunicacion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_canal_comunicacion"], ENT_QUOTES)));
+    //var_dump($fec_nacimiento);
+    
     if(isset($_POST['mod_hijos'])){
         $hijos = "S";
     }else{

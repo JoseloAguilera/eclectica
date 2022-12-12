@@ -162,9 +162,7 @@
 			}else{
 				botonMayorista.checked = true;
 			}
-		    /* $("#mod_hijos").val(hijos); */
-		    /*$("#mod_pareja").val(pareja);
-		    $("#mod_int_mayorista").val(int_mayorista);*/
+		    console.log("h", fec_nacimiento)
 			
 		}
 

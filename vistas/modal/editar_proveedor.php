@@ -66,11 +66,11 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="mod_rubro" class="control-label">Rubro:</label>
-											<select class="form-control" id="mod_rubro" name="mod_rubro" required placeholder="mod_rubro">
-												<option value="" selected>-- Selecciona --</option>
-												<option value="cuero">Cuero</option>
-												<option value="hilo_encerado">Hilo Encerado</option>
-												<option value="productos_terminados" selected>Prod. Terminados</option>
+											<select class="form-control" id="mod_rubro" name="mod_rubro" required>
+												<option value="" >-- Selecciona --</option>
+												<option value="Cuero">Cuero</option>
+												<option value="Hilo Encerado">Hilo Encerado</option>
+												<option value="Productos Terminados" >Prod. Terminados</option>
 											</select>
 										</div>
 									</div>

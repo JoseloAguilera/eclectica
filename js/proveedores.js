@@ -51,7 +51,7 @@
 		$("#editar_proveedor").submit(function(event) {
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
-			console.log(parametros);
+			
 		    $.ajax({
 		        type: "POST",
 		        url: "../ajax/editar_proveedor.php",
@@ -105,7 +105,7 @@
 		});
 
 		function obtener_datos(id) {
-			console.log("hola")
+		
 		    var nombre_proveedor = $("#nombre_proveedor" + id).val();
 		    var fiscal_proveedor = $("#fiscal_proveedor" + id).val();
 		    var web_proveedor = $("#web_proveedor" + id).val();
@@ -136,6 +136,6 @@
 			$("#mod_rubro").val(rubro);
 			$("#mod_especialidad").val(especialidad);
 
-			
+			//console.log(rubro)
 		}
 		

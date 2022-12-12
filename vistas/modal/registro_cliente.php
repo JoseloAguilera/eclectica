@@ -70,12 +70,47 @@ if (isset($conexion)) {
 											<label for="ciudad" class="control-label">Ciudad:</label>
 											<select class="form-control" id="ciudad" name="ciudad" >
 												<option value="">-- Selecciona --</option>
-												<option value="CDE" selected>CDE</option>
-												<option value="ASUNCION">Asuncion</option>
+													<?php
+													$query_ciudad = mysqli_query($conexion, "select * from ciudad order by nombre_ciudad asc");
+													while ($rw = mysqli_fetch_array($query_ciudad)) {
+													?>
+
+													<option value="<?php echo $rw['id_ciudad']; ?>"><?php echo $rw['nombre_ciudad']; ?></option>
+														<?php
+													}
+														?>
 											</select>
 										</div>
 									</div>
 								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="proveedor" class="control-label">Proveedor</label>
+											<select class="form-control" id="proveedor" name="proveedor" required>
+												<option value="">-- Selecciona --</option>
+												<?php
+												$query_proveedor = mysqli_query($conexion, "select * from proveedores order by nombre_proveedor");
+												while ($rw = mysqli_fetch_array($query_proveedor)) {
+												?>
+
+												<option value="<?php echo $rw['id_proveedor']; ?>"><?php echo $rw['nombre_proveedor']; ?></option>
+                                                    <?php
+												}
+													?>
+											</select>
+										</div>
+										
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="nro_comprobante" class="control-label">Nro Comprobante</label>
+											<input type="text" class="form-control" id="nro_comprobante" name="nro_comprobante" autocomplete="off" required>
+										</div>
+									</div>
+								</div>
+
 								<div class="row">
 									<div class="col-md-3">
 										<label for="hijos" class="control-label">Tiene Hijos</label>

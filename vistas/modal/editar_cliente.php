@@ -71,11 +71,18 @@ if (isset($conexion)) {
 														<label for="mod_ciudad" class="control-label">Ciudad:</label>
 														<select class="form-control" id="mod_ciudad" name="mod_ciudad" >
 															<option value="">-- Selecciona --</option>
-															<option value="CDE" selected>CDE</option>
-															<option value="ASUNCION">Asuncion</option>
+																<?php
+																$query_ciudad = mysqli_query($conexion, "select * from ciudad order by nombre_ciudad asc");
+																while ($rw = mysqli_fetch_array($query_ciudad)) {
+																?>
+
+																<option value="<?php echo $rw['id_ciudad']; ?>"><?php echo $rw['nombre_ciudad']; ?></option>
+																	<?php
+																}
+																?>
 														</select>
-													</div>
 												</div>
+									</div>
 											</div>
 											<div class="row">
 												<div class="col-md-3">

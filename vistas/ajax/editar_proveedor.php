@@ -32,6 +32,7 @@ if (empty($_POST['mod_id'])) {
     $estado    = intval($_POST['mod_estado']);
 
     $id_proveedor = intval($_POST['mod_id']);
+  
     $sql          = "UPDATE proveedores SET nombre_proveedor    ='" . $nombre . "',
                                             fiscal_proveedor    ='" . $fiscal . "',
                                             web_proveedor       ='" . $web . "',

@@ -145,7 +145,7 @@ if ($action == 'ajax') {
                     <th>Mayorista</th>
                     <th>Estado</th>
 
-                    <th>Agregado</th>
+                   
                     <th class='text-right'>Acciones</th>
 
                 </tr>
@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_array($query)) {
             $email_cliente     = $row['email_cliente'];
             $direccion_cliente = $row['direccion_cliente'];
             $status_cliente    = $row['status_cliente'];
-            $date_added        = date('d/m/Y', strtotime($row['date_added']));
+            $date_added        = date('d-m-Y', strtotime($row['date_added']));
             if ($status_cliente == 1) {
                 $estado = "<span class='badge badge-success'>Activo</span>";
             } else {
@@ -169,12 +169,25 @@ while ($row = mysqli_fetch_array($query)) {
             $instagram = $row['instagram'];
             $twitter = $row['twitter'];
             $tiktok = $row['tiktok'];
-            $fec_nacimiento = date('d/m/Y', strtotime($row['date_added']));
+            $fec_nacimiento = date('d-m-Y', strtotime($row['fec_nacimiento']));
+            $fec_nacimiento2 = date('Y-m-d', strtotime($row['fec_nacimiento']));
+             
             $ciudad = $row['ciudad'];
             $canal_comunicacion = $row['canal_comunicacion'];
             $hijos = $row['hijos'];
             $pareja = $row['pareja'];
             $int_mayorista = $row['int_mayorista'];
+             //Obtener descripcion de ciudad
+
+             if($ciudad != '' || $ciudad!= null){
+                $sql_ciud = "Select nombre_ciudad from ciudad where id_ciudad = $ciudad";
+                $query_ciud = mysqli_query($conexion, $sql_ciud);
+                $row_ciud = mysqli_fetch_array($query_ciud);
+                $desc_ciudad = $row_ciud['nombre_ciudad'];
+             }else{
+                $desc_ciudad = "";
+             }
+            
 
             ?>
 
@@ -182,7 +195,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <input type="hidden" value="<?php echo $fiscal_cliente; ?>" id="fiscal_cliente<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $telefono_cliente; ?>" id="telefono_cliente<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $email_cliente; ?>" id="email_cliente<?php echo $id_cliente; ?>">
-                    <input type="hidden" value="<?php echo $fec_nacimiento; ?>" id="fec_nacimiento<?php echo $id_cliente; ?>">
+                    <input type="hidden" value="<?php echo $fec_nacimiento2; ?>" id="fec_nacimiento<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $ciudad; ?>" id="ciudad<?php echo $id_cliente; ?>">
                     <input type="hidden" value="<?php echo $direccion_cliente; ?>" id="direccion_cliente<?php echo $id_cliente; ?>">
                     
@@ -207,7 +220,7 @@ while ($row = mysqli_fetch_array($query)) {
                         <td ><?php echo $telefono_cliente; ?></td>
                         <td><?php echo $email_cliente; ?></td>
                         <td><?php echo $fec_nacimiento; ?></td>
-                        <td><?php echo $ciudad; ?></td>
+                        <td><?php echo $desc_ciudad; ?></td>
                         
 
                         <td><?php echo $facebook; ?></td>
@@ -221,7 +234,7 @@ while ($row = mysqli_fetch_array($query)) {
                         <td><?php echo $int_mayorista; ?></td>
 
                         <td><?php echo $estado; ?></td>
-                        <td><?php echo $date_added; ?></td>
+                        
 
                         <td >
                             <div class="btn-group dropdown pull-right">
