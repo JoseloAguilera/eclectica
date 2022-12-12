@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-12-2022 a las 03:39:24
+-- Tiempo de generación: 12-12-2022 a las 02:14:13
 -- Versión del servidor: 5.7.40
 -- Versión de PHP: 7.4.33
 
@@ -46,16 +46,16 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `rubro` varchar(100) DEFAULT NULL,
   `especialidad` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_proveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedores`
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `nombre_proveedor`, `fiscal_proveedor`, `web_proveedor`, `direccion_proveedor`, `contacto_proveedor`, `email_proveedor`, `telefono_proveedor`, `date_added`, `estado_proveedor`, `facebook`, `instagram`, `twitter`, `tiktok`, `rubro`, `especialidad`) VALUES
-(7, 'test', '846151', 'www', 'km 5', 'contacto', 'ad@gmail.com', '98315', '0000-00-00 00:00:00', 0, 'fb', 'ig', 'tw', 'tk', NULL, NULL),
-(8, 'TEST2', '154161', 'ad@gmail.com', 'KM 12', 'LUZ', 'luz@gmail.com', '09145', '2022-12-01 09:22:56', 1, 'luz yanina', 'luzmi', 'yanina', '', NULL, NULL),
-(9, '1945261', '1151', 'web@hotmail.com', 'KM12', 'LUZ', 'luz@hotmail.com', '0978451216', '2022-12-01 11:04:21', 1, '', '', '', '', NULL, NULL);
+(8, 'TEST2', '154161', 'ad@gmail.com', 'KM 12', 'LUZ', 'luz@gmail.com', '09145', '2022-12-01 09:22:56', 1, 'luz yanina', 'luzmi', 'yanina', '', 'Cuero', 'Ropas'),
+(10, 'JUAN', '231211', 'jan ', 'KM 9', 'JUAN', '', '0985412365', '2022-12-09 06:03:03', 1, 'Test FB', 'Test IG', 'Test TW', 'Test TK', 'Hilo Encerado', 'Pulseras'),
+(12, 'YANINA', '7864516', 'yani', 'KM 9', 'LUZ', '', '1861', '2022-12-11 19:04:28', 1, '', '', '', '', 'Hilo Encerado', 'pulseras');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
