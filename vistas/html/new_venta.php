@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
@@ -51,21 +50,36 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 									Nueva Venta
 								</h3>
 								<div class="portlet-widgets">
-									<div class="btn-group dropdown">
+									<!--<div class="btn-group dropdown">
 										<button type="button" class="btn btn-primary btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-dollar'></i> Caja<i class="caret"></i> </button>
 										<div class="dropdown-menu dropdown-menu-right">
-											<?php if ($permisos_editar == 1) {?>
-											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#caja" onclick="obtener_caja('<?php echo $user_id; ?>');"><i class='fa fa-search'></i>  Ver Caja</a>
-											<?php }
-    if ($permisos_eliminar == 1) {?>
-											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#myModal2" onclick="imprimir_factura('<?php echo $user_id; ?>');"><i class='fa fa-inbox'></i> Corte de Caja</a>
-											<?php }
-    ?>
-
-
+											<?php //if ($permisos_editar == 1) {?>
+											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#caja" onclick="obtener_caja('<?php //echo $user_id; ?>');"><i class='fa fa-search'></i>  Ver Caja</a>
+											<?php //}
+											//if ($permisos_eliminar == 1) {?>
+																					<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#myModal2" onclick="imprimir_factura('<?php //echo $user_id; ?>');"><i class='fa fa-inbox'></i> Corte de Caja</a>
+																					<?php //}
+											?>
 										</div>
-									</div>
-								</div>
+									</div>-->
+
+									<div class="btn-group dropdown">
+                                        <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <!-- <label for="id_comp" class="control-label">Comprobante:</label> -->
+                                                    <select id = "id_feria" class = "form-control" name = "id_feria" required autocomplete="off" onchange="getFeria();">
+                                                        	<option value="">-Seleccione-</option>
+                                                            <option value="feria1">Feria 1</option>
+                                                            <option value="feria2">Feria 2</option>
+                                                            
+                                                    </select>
+                                                </div>
+                                        </div> 
+                                    </div>
+
+
+
+								</div> 
 								<div class="clearfix"></div>
 							</div>
 							<div id="bg-primary" class="panel-collapse collapse show">
@@ -385,4 +399,3 @@ function printFactura(id_factura) {
 
 <?php require 'includes/footer_end.php'
 ?>
-
