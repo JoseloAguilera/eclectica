@@ -46,33 +46,21 @@ $(document).ready(function() {
 
 
 
-/* function agregar(id) {
-    var precio_venta = document.getElementById('precio_venta_' + id).value;
+ function agregar(id) {
     var cantidad = document.getElementById('cantidad_' + id).value;
-    var costo = document.getElementById('precio_costo_' + id).value;
-    precio_costo = parseInt(costo, 10);
-    //console.log(precio_costo);
+    
     //Inicia validacion
     if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
         document.getElementById('cantidad_' + id).focus();
         return false;
     }
-    if (isNaN(precio_venta)) {
-        $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO')
-        document.getElementById('precio_venta_' + id).focus();
-        return false;
-    }
-    if (precio_venta < (precio_costo+(precio_costo*0.1))) {
-        $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL PRECIO ES MUY BAJO, INTENTAR DE NUEVO')
-        document.getElementById('precio_venta_' + id).focus();
-        return false;
-    }
+    
     //Fin validacion
     $.ajax({
         type: "POST",
-        url: "../ajax/agregar_tmp_modalventas.php",
-        data: "id=" + id + "&precio_venta=" + precio_venta + "&cantidad=" + cantidad + "&operacion=" + 2,
+        url: "../ajax/agregar_tmp_modaltrans.php",
+        data: "id=" + id  + "&cantidad=" + cantidad + "&operacion=" + 2,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -80,7 +68,7 @@ $(document).ready(function() {
             $("#resultados").html(datos);
         }
     });
-} */
+} 
 
 
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA

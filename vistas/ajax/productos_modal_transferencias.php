@@ -61,7 +61,7 @@ if ($action == 'ajax') {
             $id_producto     = $row['id_producto'];
             //$codigo_producto = $row['codigo_producto'];
             //$nombre_producto = $row['nombre_producto'];
-            //$stock_producto  = $row['stock_producto'];
+            $stock_producto  = $row['stock_producto'];
             //$precio_venta    = $row["valor1_producto"];
             //$precio_venta    = number_format($precio_venta, 0, '', '');
             //$precio_costo    = $row['costo_producto'];
@@ -73,7 +73,6 @@ if ($action == 'ajax') {
             $row_prod = mysqli_fetch_array($query_prod);
             $codigo_producto = $row_prod['codigo_producto'];
             $nombre_producto = $row_prod['nombre_producto'];
-            $stock_producto  = $row_prod['stock_producto'];
             $precio_venta    = $row_prod["valor1_producto"];
             $precio_venta    = number_format($precio_venta, 0, '', '');
             $precio_costo    = $row_prod['costo_producto'];
@@ -82,17 +81,16 @@ if ($action == 'ajax') {
             ?>
                     <tr>
                         <td class='text-center'>
-                        <?php
-            if ($image_path == null) {
-                echo '<img src="../../img/productos/default.jpg" class="" width="60">';
-            } else {
-                echo '<img src="' . $image_path . '" class="" width="60">';
-            }
-
-            ?>
-                                <!--<img src="<?php echo $image_path; ?>" alt="Product Image" class='rounded-circle' width="60">-->
-                            </td>
-                            <td><?php echo $codigo_producto; ?></td>
+                            <?php
+                                if ($image_path == null) {
+                                    echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                                } else {
+                                    echo '<img src="' . $image_path . '" class="" width="60">';
+                                }
+                            ?>
+                            <!--<img src="<?php echo $image_path; ?>" alt="Product Image" class='rounded-circle' width="60">-->
+                        </td>
+                        <td><?php echo $codigo_producto; ?></td>
                         <td><?php echo $nombre_producto; ?></td>
                         <td class="text-center"><?php echo stock($stock_producto); ?></td>
                         <td class='col-xs-1' width="15%">
@@ -101,7 +99,7 @@ if ($action == 'ajax') {
                         </div>
                         </td>
                         <td class='text-center'>
-                        <a class='btn btn-success' href="#" title="Agregar a Factura" onclick="agregar('<?php echo $id_producto ?>')"><i class="fa fa-plus"></i>
+                        <a class='btn btn-success' href="#" title="Transferir" onclick="agregar('<?php echo $id_producto ?>')"><i class="fa fa-plus"></i>
                         </a>
                         </td>
                     </tr>
