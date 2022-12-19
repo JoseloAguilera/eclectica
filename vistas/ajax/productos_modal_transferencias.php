@@ -15,7 +15,7 @@ if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['t'], ENT_QUOTES)));
     $o        = ($_GET['org']);
-    $aColumns = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
+    $aColumns = array('id_producto'); //Columnas de busqueda
     $sTable   = "productos";
     $sWhere   = "";
     if ($_GET['t'] != "") {
@@ -33,18 +33,18 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $o  $sWhere");
     $row         = mysqli_fetch_array($count_query);
+    
     $numrows     = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
-    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
-
+        echo $numrows;
         ?>
             <div class="table-responsive">
               <table class="table table-bordered table-striped table-sm">
@@ -57,20 +57,33 @@ if ($action == 'ajax') {
                     <th class='text-center' style="width: 36px;"></th>
                 </tr>
                 <?php
-while ($row = mysqli_fetch_array($query)) {
+        while ($row = mysqli_fetch_array($query)) {
             $id_producto     = $row['id_producto'];
-            $codigo_producto = $row['codigo_producto'];
-            $nombre_producto = $row['nombre_producto'];
-            $stock_producto  = $row['stock_producto'];
-            $precio_venta    = $row["valor1_producto"];
+            //$codigo_producto = $row['codigo_producto'];
+            //$nombre_producto = $row['nombre_producto'];
+            //$stock_producto  = $row['stock_producto'];
+            //$precio_venta    = $row["valor1_producto"];
+            //$precio_venta    = number_format($precio_venta, 0, '', '');
+            //$precio_costo    = $row['costo_producto'];
+            //$image_path      = $row['image_path'];
+
+            //Obtener descripcion del proveedor
+            $sql_prod = "Select * from productos where id_producto = $id_producto";
+            $query_prod = mysqli_query($conexion, $sql_prod);
+            $row_prod = mysqli_fetch_array($query_prod);
+            $codigo_producto = $row_prod['codigo_producto'];
+            $nombre_producto = $row_prod['nombre_producto'];
+            $stock_producto  = $row_prod['stock_producto'];
+            $precio_venta    = $row_prod["valor1_producto"];
             $precio_venta    = number_format($precio_venta, 0, '', '');
-            $precio_costo    = $row['costo_producto'];
-            $image_path      = $row['image_path'];
+            $precio_costo    = $row_prod['costo_producto'];
+            $image_path      = $row_prod['image_path'];
+
             ?>
                     <tr>
                         <td class='text-center'>
                         <?php
-if ($image_path == null) {
+            if ($image_path == null) {
                 echo '<img src="../../img/productos/default.jpg" class="" width="60">';
             } else {
                 echo '<img src="' . $image_path . '" class="" width="60">';
@@ -87,8 +100,6 @@ if ($image_path == null) {
                         <input type="text" class="form-control" style="text-align:center" id="cantidad_<?php echo $id_producto; ?>"  value="1" >
                         </div>
                         </td>
-                       
-                       
                         <td class='text-center'>
                         <a class='btn btn-success' href="#" title="Agregar a Factura" onclick="agregar('<?php echo $id_producto ?>')"><i class="fa fa-plus"></i>
                         </a>
