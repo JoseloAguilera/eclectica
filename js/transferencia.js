@@ -48,7 +48,8 @@ $(document).ready(function() {
 
  function agregar(id) {
     var cantidad = document.getElementById('cantidad_' + id).value;
-    
+        var des = localStorage.getItem("destino");
+        var or = localStorage.getItem("origen");
     //Inicia validacion
     if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
@@ -60,7 +61,7 @@ $(document).ready(function() {
     $.ajax({
         type: "POST",
         url: "../ajax/agregar_tmp_modaltrans.php",
-        data: "id=" + id  + "&cantidad=" + cantidad + "&operacion=" + 2,
+        data: "id=" + id  + "&cantidad=" + cantidad + "&operacion=" + 2 + "&or=" + or + "&des=" + des,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },

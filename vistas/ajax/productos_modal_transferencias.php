@@ -44,7 +44,6 @@ if ($action == 'ajax') {
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
-        echo $numrows;
         ?>
             <div class="table-responsive">
               <table class="table table-bordered table-striped table-sm">

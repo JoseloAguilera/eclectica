@@ -9,13 +9,16 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 if (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
+if (isset($_POST['or'])) {$or = $_POST['or'];}
+if (isset($_POST['des'])) {$des = $_POST['des'];}
 
-if (!empty($id) and !empty($cantidad)) {
+if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
+
     // consulta para comparar el stock con la cantidad resibida
-    $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id'");
-    $rw    = mysqli_fetch_array($query);
-    $stock = $rw['stock_producto'];
-    $inv   = $rw['inv_producto'];
+    //$query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id'");
+    //$rw    = mysqli_fetch_array($query);
+    //$stock = $rw['stock_producto'];
+    //$inv   = $rw['inv_producto'];
 
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "'");
