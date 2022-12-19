@@ -15,6 +15,7 @@ $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Productos";
 permisos($modulo, $cadena_permisos);
+$title = "Transferencia";
 //Finaliza Control de Permisos
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 //consulta para elegir el comprobante
@@ -49,20 +50,20 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 								<h3 class="portlet-title">
 									Nueva Transferencia
 								</h3>
-								<div class="portlet-widgets">
-								</div> 
+								<div class="portlet-widgets"></div> 
 								<div class="clearfix"></div>
 							</div>
 							<div id="bg-primary" class="panel-collapse collapse show">
 								<div class="portlet-body">
 									<?php
-	include "../modal/buscar_productos_ventas.php";
-	include "../modal/buscar_clientes_ventas.php";
-    include "../modal/registro_cliente.php";
-    include "../modal/registro_producto.php";
-    include "../modal/caja.php";
-    include "../modal/anular_factura.php";
-    ?>
+									
+									include "../modal/buscar_productos_transferencia.php";
+									//include "../modal/buscar_clientes_ventas.php";
+									//include "../modal/registro_cliente.php";
+									///include "../modal/registro_producto.php";
+									//include "../modal/caja.php";
+									//include "../modal/anular_factura.php";
+									?>
 									<div class="row">
 										<div class="col-lg-12">
 											<div class="card-box">
@@ -71,11 +72,23 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
 													<form class="form-horizontal" role="form" id="barcode_form">
 														<div class="form-group row">
-															<label for="id_feria" class="control-label">Origen:</label>
-															<div class="col-md-3" align="left">	
+															<label for="id_origen" class="control-label">Origen:</label>
+															<div class="col-md-2" align="left">	
 																
-																<select id = "id_feria" class = "form-control" name = "id_feria" required autocomplete="off" onchange="getFeria();">
-																		<option value="tienda" selected>Tienda</option>
+																<select id = "id_origen" class = "form-control" name = "id_origen" required autocomplete="off" onchange="getOrigen();">
+																		<option value="" selected>Seleccione</option>
+																		<option value="productos">Tienda</option>
+																		<option value="feria1">Feria 1</option>
+																		<option value="feria2">Feria 2</option>
+																		
+																</select>
+															</div>
+															
+															<label for="id_destino" class="control-label">Destino:</label>
+															<div class="col-md-2" align="left">	
+																<select id = "id_destino" class = "form-control" name = "id_destino" required autocomplete="off" onchange="getDestino();">
+																		<option value="" selected>Seleccione</option>		
+																		<option value="productos">Tienda</option>
 																		<option value="feria1">Feria 1</option>
 																		<option value="feria2">Feria 2</option>
 																		
@@ -83,7 +96,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 															</div>
 
 															<label for="condiciones" class="control-label">Codigo:</label>
-															<div class="col-md-5" align="left">
+															<div class="col-md-4" align="left">
 																<div class="input-group">
 																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
 																	<span class="input-group-btn">
@@ -116,6 +129,44 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 							</div>
 						</div>
 					</div>
+
+					<div class="col-lg-12">
+						<div class="portlet">
+							<div class="portlet-heading bg-primary">
+								<h3 class="portlet-title">
+									Productos en destino
+								</h3>
+								<div class="portlet-widgets"></div> 
+								<div class="clearfix"></div>
+							</div>
+							<div id="bg-primary" class="panel-collapse collapse show">
+								<div class="portlet-body">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="card-box">
+
+												<div class="widget-chart">
+													<div id="resultados_destino" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+												</div>
+											</div>
+
+										</div>
+
+										
+
+									</div>
+									<!-- end row -->
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
 					<?php
 } else {
     ?>
@@ -156,93 +207,6 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 <!-- Codigos Para el Auto complete de Clientes -->
 
 <!-- FIN -->
-<script>
-// print order function
-function printOrder(id_factura) {
-	$('#modal_vuelto').modal('hide');//CIERRA LA MODAL
-	if (id_factura) {
-		$.ajax({
-			url: '../pdf/documentos/imprimir_venta.php',
-			type: 'post',
-			data: {
-				id_factura: id_factura
-			},
-			dataType: 'text',
-			success: function(response) {
-				var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-				mywindow.document.write('<html><head><title>Facturación</title>');
-				mywindow.document.write('</head><body>');
-				mywindow.document.write(response);
-				mywindow.document.write('</body></html>');
-                mywindow.document.close(); // necessary for IE >= 10
-                mywindow.focus(); // necessary for IE >= 10
-                mywindow.print();
-                mywindow.close();
-            } // /success function
-
-        }); // /ajax function to fetch the printable order
-    } // /if orderId
-} // /print order function
-</script>
-<script>
-// print order function
-function printFactura(id_factura) {
-	$('#modal_vuelto').modal('hide');
-	if (id_factura) {
-		$.ajax({
-			url: '../pdf/documentos/imprimir_factura_venta.php',
-			type: 'post',
-			data: {
-				id_factura: id_factura
-			},
-			dataType: 'text',
-			success: function(response) {
-				var mywindow = window.open('', 'Stock Management System', 'height=800,width=1200');
-				mywindow.document.write('<html><head><title>Facturación</title>');
-				mywindow.document.write('</head><body>');
-				mywindow.document.write(response);
-				mywindow.document.write('</body></html>');
-                mywindow.document.close(); // necessary for IE >= 10
-                mywindow.focus(); // necessary for IE >= 10
-               // mywindow.print();
-               // mywindow.close();
-            } // /success function
-
-        }); // /ajax function to fetch the printable order
-    } // /if orderId
-} // /print order function
-</script>
-<script>
-	function obtener_caja(user_id) {
-		$(".outer_div3").load("../modal/carga_caja.php?user_id=" + user_id);//carga desde el ajax
-	}
-</script>
-<script>
-	function showDiv(select){
-		if(select.value==4){
-			$("#resultados3").load("../ajax/carga_prima.php");
-		} else{
-			$("#resultados3").load("../ajax/carga_resibido.php");
-		}
-	}
-	function comprobar(select){
-		var rnc = $("#rnc").val();
-		if(select.value==1 && rnc==''){
-			$.Notification.notify('warning','bottom center','NOTIFICACIÓN', 'AL CLIENTE SELECCIONADO NO SE LE PUEDE IMPRIR LA FACTURA, NO TIENE RUC - CEDULA REGISTRADO')
-			$("#resultados4").load("../ajax/tipo_doc.php");
-		} else{
-			//$("#resultados3").load("../ajax/carga_resibido.php");
-		}
-	}
-</script>
-<script>
-  function getval(sel)
-  {
-    $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
-    $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp="+sel.value);
-
-  }
-</script>
 
 <?php require 'includes/footer_end.php'
 ?>

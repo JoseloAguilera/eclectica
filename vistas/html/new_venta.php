@@ -85,6 +85,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 							<div id="bg-primary" class="panel-collapse collapse show">
 								<div class="portlet-body">
 									<?php
+	
 	include "../modal/buscar_productos_ventas.php";
 	include "../modal/buscar_clientes_ventas.php";
     include "../modal/registro_cliente.php";

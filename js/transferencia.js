@@ -1,30 +1,32 @@
 $(document).ready(function() {
-    $("#resultados").load("../ajax/agregar_tmp.php");
+    //$("#resultados").load("../ajax/agregar_tmp.php");
     //$("#f_resultado").load("../ajax/incrementa_factura.php");
-    $("#resultados2").load("../ajax/carga_caja.php");
-    $("#resultados3").load("../ajax/carga_resibido.php");
-    $("#resultados4").load("../ajax/tipo_doc.php");
-    $("#resultados5").load("../ajax/carga_num_trans.php");
-    $("#datos_factura").load();
-    $("#barcode").focus();
+   // $("#resultados2").load("../ajax/carga_caja.php");
+   // $("#resultados3").load("../ajax/carga_resibido.php");
+   // $("#resultados4").load("../ajax/tipo_doc.php");
+   // $("#resultados5").load("../ajax/carga_num_trans.php");
+   // $("#datos_factura").load();
+   // $("#barcode").focus();
     load(1);
 });
 
-function load(page) {
-    var q = $("#q").val();
-    var t = $("#t").val();
+ function load(page) {
+    //var o = localStorage.getItem("origen");
+    var q = localStorage.getItem("destino");
+    console.log("q->", q)
     $("#loader").fadeIn('slow');
     $.ajax({
-        url: '../ajax/productos_modal_ventas.php?action=ajax&page=' + page + '&q=' + q,
+        url: '../ajax/buscar_transferencias.php?action=ajax&page=' + page + '&q=' + q,
+        //url: '../ajax/productos_modal_ventas.php?action=ajax&page=' + page + '&q=' + q,
         beforeSend: function(objeto) {
             $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(data) {
-            $(".outer_div").html(data).fadeIn('slow');
+            $("#resultados_destino").html(data).fadeIn('slow');
             $('#loader').html('');
         }
     })
-    $.ajax({
+    /* $.ajax({
         url: '../ajax/clientes_modal_ventas.php?action=ajax&page=' + page + '&t=' + t,
         beforeSend: function(objeto) {
             $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -33,12 +35,12 @@ function load(page) {
             $(".outer_div_cliente").html(data).fadeIn('slow');
             $('#loader').html('');
         }
-    })
+   })  */
 }
 
 
 
-function agregar(id) {
+/* function agregar(id) {
     var precio_venta = document.getElementById('precio_venta_' + id).value;
     var cantidad = document.getElementById('cantidad_' + id).value;
     var costo = document.getElementById('precio_costo_' + id).value;
@@ -72,11 +74,11 @@ function agregar(id) {
             $("#resultados").html(datos);
         }
     });
-}
+} */
 
 
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA
-$("#barcode_form").submit(function(event) {
+/* $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
     var cantidad = $("#barcode_qty").val();
     var id_sucursal = 0;
@@ -109,9 +111,9 @@ $("#barcode_form").submit(function(event) {
         }
     });
     event.preventDefault();
-})
+}) */
 
-function eliminar(id) {
+/* function eliminar(id) {
     $.ajax({
         type: "GET",
         url: "../ajax/agregar_tmp.php",
@@ -123,9 +125,9 @@ function eliminar(id) {
             $("#resultados").html(datos);
         }
     });
-}
+} */
 
-$("#datos_factura").submit(function(event) {
+/* $("#datos_factura").submit(function(event) {
     $('#guardar_factura').attr("disabled", true);
     var id_cliente = $("#id_cliente").val();
     var resibido = $("#resibido").val();
@@ -169,8 +171,8 @@ $("#datos_factura").submit(function(event) {
         }
     });
     event.preventDefault();
-})
-$("#guardar_cliente").submit(function(event) {
+}) */
+/* $("#guardar_cliente").submit(function(event) {
     $('#guardar_datos').attr("disabled", true);
     var parametros = $(this).serialize();
     $.ajax({
@@ -195,8 +197,8 @@ $("#guardar_cliente").submit(function(event) {
         }
     });
     event.preventDefault();
-})
-$("#guardar_producto").submit(function(event) {
+}) */
+/* $("#guardar_producto").submit(function(event) {
     $('#guardar_datos').attr("disabled", true);
     var parametros = $(this).serialize();
     $.ajax({
@@ -220,9 +222,9 @@ $("#guardar_producto").submit(function(event) {
             load(1);
         }
     });
-    event.preventDefault();
-})
-$('#dataDelete').on('show.bs.modal', function(event) {
+    event.preventDefault(); 
+})*/
+/* $('#dataDelete').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget) // Botón que activó el modal
             var id = button.data('id') // Extraer la información de atributos de datos
             var modal = $(this)
@@ -250,14 +252,20 @@ $('#dataDelete').on('show.bs.modal', function(event) {
                 }
             });
             event.preventDefault();
-        });
-
+        }); */
+/* 
 function imprimir_factura(user_id) {
     VentanaCentrada('../pdf/documentos/corte_caja.php?user_id=' + user_id, 'Corte', '', '724', '568', 'true');
+} */
+
+function getOrigen(){
+    var origen = document.getElementById('id_origen').value;
+    localStorage.setItem('origen', origen);
+    
 }
 
-function getFeria(valor){
-    var fer = document.getElementById('id_feria').value;
-    localStorage.setItem('feria', fer);
-    console.log("valor", fer);
+function getDestino(){
+    var destino = document.getElementById('id_destino').value;
+    localStorage.setItem('destino', destino);
+    load(1);
 }
