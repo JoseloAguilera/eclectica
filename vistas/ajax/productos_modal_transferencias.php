@@ -14,7 +14,7 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['t'], ENT_QUOTES)));
-    //var_dump($q);
+    $o        = ($_GET['org']);
     $aColumns = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
     $sTable   = "productos";
     $sWhere   = "";
@@ -39,7 +39,8 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -53,7 +54,6 @@ if ($action == 'ajax') {
                     <th class='text-center'>PRODUCTOS</th>
                     <th class='text-center'>STOCK</th>
                     <th class='text-center'>CANT</th>
-                    <th class='text-center'>PRECIO</th>
                     <th class='text-center' style="width: 36px;"></th>
                 </tr>
                 <?php
@@ -87,10 +87,8 @@ if ($image_path == null) {
                         <input type="text" class="form-control" style="text-align:center" id="cantidad_<?php echo $id_producto; ?>"  value="1" >
                         </div>
                         </td>
-                        <td class='col-xs-2' width="15%"><div class="pull-right">
-                        <input type="text" class="form-control txt_price" style="text-align:right" id="precio_venta_<?php echo $id_producto; ?>"  value="<?php echo $precio_venta; ?>" >
-                        </div></td>
-                        <input type="hidden" id="precio_costo_<?php echo $id_producto; ?>"  value="<?php echo $precio_costo; ?>" >
+                       
+                       
                         <td class='text-center'>
                         <a class='btn btn-success' href="#" title="Agregar a Factura" onclick="agregar('<?php echo $id_producto ?>')"><i class="fa fa-plus"></i>
                         </a>

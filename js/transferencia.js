@@ -32,7 +32,7 @@ $(document).ready(function() {
         boton.removeAttribute("disabled");
     }
     $.ajax({
-        url: '../ajax/productos_modal_transferencias.php?action=ajax&page=' + page + '&t=' + t,
+        url: '../ajax/productos_modal_transferencias.php?action=ajax&page=' + page + '&t=' + t + '&org=' + o,
         beforeSend: function(objeto) {
             $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -267,6 +267,7 @@ function imprimir_factura(user_id) {
 function getOrigen(){
     var origen = document.getElementById('id_origen').value;
     localStorage.setItem('origen', origen);
+    load(1);
 }
 
 function getDestino(){
