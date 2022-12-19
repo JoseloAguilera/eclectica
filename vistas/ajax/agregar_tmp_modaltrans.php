@@ -21,35 +21,35 @@ if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
     $stock = $rw['stock_producto'];
     
     //Comprobamos si ya agregamos ese producto a la tabla tmp_transferencia, si existe, suma stock
-    $comprobar = mysqli_query($conexion, "select * from tmp_transferencia, productos where productos.id_producto = tmp_transferencia.id_producto and tmp_transferencia.id_producto='" . $id . "' and tmp_transferencia.session_id='" . $session_id . "'");
+    $sql_org = "select * from tmp_transferencia, $or where $or.id_producto = tmp_transferencia.id_producto and tmp_transferencia.id_producto='" . $id . "' and tmp_transferencia.session_id='" . $session_id . "'";
+
+    $comprobar = mysqli_query($conexion, $sql_org);
     if ($row = mysqli_fetch_array($comprobar)) {
         $cant = $row['cantidad_tmp'] + $cantidad;
     // condicion si el stock e menor que la cantidad requerida
-        if ($cant > $row['stock_producto'] and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-            $('#resultados').load('../ajax/agregar_tmp.php');
+        if ($cant > $row['stock_producto']) {
+            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
+            $('#resultados').load('../ajax/agregar_tmp_trans.php');
             </script>";
             exit;
         } else {
-            $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
+            $sql          = "UPDATE tmp_transferencia SET cantidad_tmp='" . $cant . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
             $query_update = mysqli_query($conexion, $sql);
-            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
+            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO TRANSFERIDO CORRECTAMENTE')</script>";
          }
         // fin codicion cantaidad
 
     } else {
-        $test = "hola2";
-        echo $test;
     // condicion si el stock e menor que la cantidad requerida
-        /* if ($cantidad > $stock and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-             $('#resultados').load('../ajax/agregar_tmp.php');
+        if ($cantidad > $stock) {
+            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
+             $('#resultados').load('../ajax/agregar_tmp_trans.php');
             </script>";
             exit;
         } else {
-            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')");
-            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
-         }*/
+            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_transferencia (id_producto,cantidad_tmp,session_id) VALUES ('$id','$cantidad','$session_id')");
+            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO TRANSFERIDO CORRECTAMENTE')</script>";
+        }
         // fin codicion cantaidad
     }
 
