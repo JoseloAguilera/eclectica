@@ -15,7 +15,7 @@ if (isset($conexion)) {
 
 							<div class="col-md-5">
 								<div class="input-group">
-									<input type="text" autocomplete="off" class="form-control" id="q" placeholder="Buscar por Codigo/nombre" onkeyup="load(1)">
+									<input type="text" autocomplete="off" class="form-control" id="t" placeholder="Buscar por Codigo/nombre" onkeyup="load(1)">
 									<span class="input-group-btn">
 										<button type="submit" class="btn btn-primary waves-effect waves-light" onclick="load(1)"><span class="fa fa-search"></span></button>
 									</span>

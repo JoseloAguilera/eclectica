@@ -13,7 +13,8 @@ $(document).ready(function() {
  function load(page) {
     //var o = localStorage.getItem("origen");
     var q = localStorage.getItem("destino");
-    console.log("q->", q)
+    var o = localStorage.getItem("origen");
+    var t = $("#t").val();
     $("#loader").fadeIn('slow');
     $.ajax({
         url: '../ajax/buscar_transferencias.php?action=ajax&page=' + page + '&q=' + q,
@@ -26,16 +27,21 @@ $(document).ready(function() {
             $('#loader').html('');
         }
     })
-    /* $.ajax({
-        url: '../ajax/clientes_modal_ventas.php?action=ajax&page=' + page + '&t=' + t,
+    if(o != null && q!= null){
+        var boton = document.getElementById('test');
+        boton.removeAttribute("disabled");
+    }
+    $.ajax({
+        url: '../ajax/productos_modal_transferencias.php?action=ajax&page=' + page + '&t=' + t,
         beforeSend: function(objeto) {
             $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(data) {
-            $(".outer_div_cliente").html(data).fadeIn('slow');
+            $(".outer_div").html(data).fadeIn('slow');
             $('#loader').html('');
         }
-   })  */
+    })
+    
 }
 
 
@@ -261,7 +267,6 @@ function imprimir_factura(user_id) {
 function getOrigen(){
     var origen = document.getElementById('id_origen').value;
     localStorage.setItem('origen', origen);
-    
 }
 
 function getDestino(){

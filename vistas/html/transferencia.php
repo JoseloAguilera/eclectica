@@ -105,7 +105,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																</div>
 															</div>
 															<div class="col-md-2">
-																<button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
+																<button type="button" id="test" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar" disabled="true">
 																	<span class="fa fa-search"></span> Buscar
 																</button>
 															</div>
