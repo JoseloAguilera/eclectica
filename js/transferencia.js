@@ -108,8 +108,8 @@ $(document).ready(function() {
     event.preventDefault();
 }) */
 
-/* function eliminar(id) {
-    $.ajax({
+ function eliminar(id) {
+    /*$.ajax({
         type: "GET",
         url: "../ajax/agregar_tmp.php",
         data: "id=" + id,
@@ -119,8 +119,8 @@ $(document).ready(function() {
         success: function(datos) {
             $("#resultados").html(datos);
         }
-    });
-} */
+    });*/
+} 
 
 /* $("#datos_factura").submit(function(event) {
     $('#guardar_factura').attr("disabled", true);

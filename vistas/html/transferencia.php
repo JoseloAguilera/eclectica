@@ -111,8 +111,23 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 															</div>
 														</div>
 													</form>
-
-													<div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+													
+													<div class="portlet">
+														<div class="portlet-heading bg-primary">
+															<h4 class="portlet-title">
+																Productos a transferir
+															</h4>
+															<div class="portlet-widgets"></div> 
+															<div class="clearfix"></div>
+														</div>
+																<div class="widget-chart">
+																	<div id="resultados" class='col-md-12' style="margin-top:10px"><!-- Carga los datos ajax -->
+																	</div>															
+															
+																</div>
+													<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"> -->
+													
+													</div><!-- Carga los datos ajax -->
 
 												</div>
 											</div>
@@ -133,9 +148,9 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 					<div class="col-lg-12">
 						<div class="portlet">
 							<div class="portlet-heading bg-primary">
-								<h3 class="portlet-title">
+								<h4 class="portlet-title">
 									Productos en destino
-								</h3>
+								</h4>
 								<div class="portlet-widgets"></div> 
 								<div class="clearfix"></div>
 							</div>
