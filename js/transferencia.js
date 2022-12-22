@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //$("#resultados").load("../ajax/agregar_tmp.php");
+    //$("#resultados").load("../ajax/agregar_tmp_trans.php");
     //$("#f_resultado").load("../ajax/incrementa_factura.php");
    // $("#resultados2").load("../ajax/carga_caja.php");
    // $("#resultados3").load("../ajax/carga_resibido.php");

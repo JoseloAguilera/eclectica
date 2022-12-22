@@ -125,8 +125,33 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																	</div>															
 															
 																</div>
-													<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"> -->
+														<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"> -->
 													
+
+														<div class="portlet-heading bg-primary">
+															<h4 class="portlet-title">
+																Productos en destino
+															</h4>
+															<div class="portlet-widgets"></div> 
+															<div class="clearfix"></div>
+														</div>
+														<div id="bg-primary" class="panel-collapse collapse show">
+															<div class="portlet-body">
+																<div class="row">
+																	<div class="col-lg-12">
+																		<div class="card-box">
+
+																			<div class="widget-chart">
+																				<div id="resultados_destino" class='col-md-12' style="margin-top:10px">
+																				</div><!-- Carga los datos ajax -->
+																			</div>
+																		</div>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+														
 													</div><!-- Carga los datos ajax -->
 
 												</div>
@@ -142,45 +167,10 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 								</div>
 							</div>
+							<!-- Test Destino -->
+							
 						</div>
 					</div>
-
-					<div class="col-lg-12">
-						<div class="portlet">
-							<div class="portlet-heading bg-primary">
-								<h4 class="portlet-title">
-									Productos en destino
-								</h4>
-								<div class="portlet-widgets"></div> 
-								<div class="clearfix"></div>
-							</div>
-							<div id="bg-primary" class="panel-collapse collapse show">
-								<div class="portlet-body">
-									<div class="row">
-										<div class="col-lg-12">
-											<div class="card-box">
-
-												<div class="widget-chart">
-													<div id="resultados_destino" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
-												</div>
-											</div>
-
-										</div>
-
-										
-
-									</div>
-									<!-- end row -->
-
-
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
 
 					<?php
 } else {
