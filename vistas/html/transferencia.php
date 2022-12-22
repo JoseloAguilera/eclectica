@@ -153,25 +153,18 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 														</div>
 														
 													</div><!-- Carga los datos ajax -->
-
 												</div>
 											</div>
-
-										</div>
-
-										
-
+										</div>										
 									</div>
 									<!-- end row -->
 
 
 								</div>
 							</div>
-							<!-- Test Destino -->
-							
+							<!-- Test Destino -->							
 						</div>
 					</div>
-
 					<?php
 } else {
     ?>

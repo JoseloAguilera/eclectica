@@ -13,7 +13,6 @@ require_once "../funciones.php";
 if (!empty($id) and !empty($cantidad)) {
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);
     $precio_venta = get_row('productos', 'valor1_producto', 'id_producto', $id_producto);
-
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id_producto'");
     $rw    = mysqli_fetch_array($query);

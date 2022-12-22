@@ -109,10 +109,12 @@ $(document).ready(function() {
 }) */
 
  function eliminar(id) {
+    var des = localStorage.getItem("destino");
+    var or = localStorage.getItem("origen");
     /*$.ajax({
         type: "GET",
-        url: "../ajax/agregar_tmp.php",
-        data: "id=" + id,
+        url: "../ajax/agregar_tmp_trans.php",
+        data: "id=" + id + "&or=" + or + "&des=" + des,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
