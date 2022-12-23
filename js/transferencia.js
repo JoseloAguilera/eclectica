@@ -6,7 +6,7 @@ $(document).ready(function() {
    // $("#resultados4").load("../ajax/tipo_doc.php");
    // $("#resultados5").load("../ajax/carga_num_trans.php");
    // $("#datos_factura").load();
-   // $("#barcode").focus();
+   $("#barcode").focus();
     load(1);
 });
 
@@ -73,16 +73,16 @@ $(document).ready(function() {
 
 
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA
-/* $("#barcode_form").submit(function(event) {
+ $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
-    var cantidad = $("#barcode_qty").val();
+    //var cantidad = $("#barcode_qty").val();
     var id_sucursal = 0;
     //Inicia validacion
-    if (isNaN(cantidad)) {
+    /* if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
         $("#barcode_qty").focus();
         return false;
-    }
+    } */
     //Fin validacion
     parametros = {
         'operacion':1,
@@ -92,7 +92,7 @@ $(document).ready(function() {
     };
     $.ajax({
         type: "POST",
-        url: "../ajax/agregar_tmp.php",
+        url: "../ajax/agregar_tmp_trans.php",
         data: parametros,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -102,16 +102,17 @@ $(document).ready(function() {
             $("#id").val("");
             $("#id").focus();
             $("#barcode").val("");
-            $("#f_resultado").load("../ajax/incrementa_factura.php"); //Actualizamos el numero de Factura
+            //$("#f_resultado").load("../ajax/incrementa_factura.php"); //Actualizamos el numero de Factura
         }
     });
     event.preventDefault();
-}) */
+}) 
 
  function eliminar(id) {
+    console.log("entro aca");
     var des = localStorage.getItem("destino");
     var or = localStorage.getItem("origen");
-    /*$.ajax({
+    $.ajax({
         type: "GET",
         url: "../ajax/agregar_tmp_trans.php",
         data: "id=" + id + "&or=" + or + "&des=" + des,
@@ -121,7 +122,7 @@ $(document).ready(function() {
         success: function(datos) {
             $("#resultados").html(datos);
         }
-    });*/
+    });
 } 
 
 /* $("#datos_factura").submit(function(event) {
