@@ -14,6 +14,8 @@ $(document).ready(function() {
     //var o = localStorage.getItem("origen");
     var q = localStorage.getItem("destino");
     var o = localStorage.getItem("origen");
+    $("#id_origen").val(o);
+    $("#id_destino").val(q);
     var t = $("#t").val();
     $("#loader").fadeIn('slow');
     $.ajax({
@@ -75,21 +77,26 @@ $(document).ready(function() {
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA
  $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
-    //var cantidad = $("#barcode_qty").val();
+    var cantidad = $("#barcode_qty").val();
     var id_sucursal = 0;
+    var des = localStorage.getItem("destino");
+    var or = localStorage.getItem("origen");
     //Inicia validacion
-    /* if (isNaN(cantidad)) {
+     if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
         $("#barcode_qty").focus();
         return false;
-    } */
+    } 
     //Fin validacion
     parametros = {
         'operacion':1,
         'id': id,
         'id_sucursal': id_sucursal,
-        'cantidad': cantidad
+        'cantidad': cantidad,
+        'or': or,
+        'des': des
     };
+   
     $.ajax({
         type: "POST",
         url: "../ajax/agregar_tmp_trans.php",

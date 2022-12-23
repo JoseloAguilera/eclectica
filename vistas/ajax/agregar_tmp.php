@@ -11,6 +11,7 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 
 if (!empty($id) and !empty($cantidad)) {
+    echo $cantidad;
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);
     $precio_venta = get_row('productos', 'valor1_producto', 'id_producto', $id_producto);
     // consulta para comparar el stock con la cantidad resibida

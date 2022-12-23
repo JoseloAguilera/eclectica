@@ -94,9 +94,13 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																		
 																</select>
 															</div>
+															<label for="barcode_qty" class="control-label">Cant:</label>
+															<div class="col-md-1">
+																<input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
+															</div>
 
 															<label for="condiciones" class="control-label">Codigo:</label>
-															<div class="col-md-4" align="left">
+															<div class="col-md-3" align="left">
 																<div class="input-group">
 																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
 																	<span class="input-group-btn">
@@ -104,7 +108,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																	</span>
 																</div>
 															</div>
-															<div class="col-md-2">
+															<div class="col-md-1">
 																<button type="button" id="test" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar" disabled="true">
 																	<span class="fa fa-search"></span> Buscar
 																</button>

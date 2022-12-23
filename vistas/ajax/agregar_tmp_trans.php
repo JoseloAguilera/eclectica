@@ -13,6 +13,7 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 
 if (!empty($id) and !empty($cantidad)and !empty($or) and !empty($des)) {
+ 
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);
     //$precio_venta = get_row('productos', 'valor1_producto', 'id_producto', $id_producto);
 
@@ -21,38 +22,45 @@ if (!empty($id) and !empty($cantidad)and !empty($or) and !empty($des)) {
     $rw    = mysqli_fetch_array($query);
     $stock = $rw['stock_producto'];
     //$inv   = $rw['inv_producto'];
-
-    //Comprobamos si ya agregamos un producto a la tabla tmp_compra
-    $comprobar = mysqli_query($conexion, "select * from tmp_transferencia, $or where $or.id_producto = tmp_transferencia.id_producto and  tmp_transferencia.id_producto='" . $id_producto . "' and session_id='" . $session_id . "'");
-
-    if ($row = mysqli_fetch_array($comprobar)) {
-        $cant = $row['cantidad_tmp'] + $cantidad;
-        // condicion si el stock e menor que la cantidad requerida
-        if ($cant > $row['stock_producto']) {
-            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
-            $('#resultados').load('../ajax/agregar_tmp_trans.php');
-        </script>";
+    if($stock <=0){
+        echo "<script>swal('No hay registro de producto!', 'Intente nuevamente', 'error')
+                    $('#resultados').load('../ajax/agregar_tmp_trans.php');
+                </script>";
             exit;
+    }else{
+        //Comprobamos si ya agregamos un producto a la tabla tmp_compra
+        $comprobar = mysqli_query($conexion, "select * from tmp_transferencia, $or where $or.id_producto = tmp_transferencia.id_producto and  tmp_transferencia.id_producto='" . $id_producto . "' and session_id='" . $session_id . "'");
+
+        if ($row = mysqli_fetch_array($comprobar)) {
+            $cant = $row['cantidad_tmp'] + $cantidad;
+            // condicion si el stock e menor que la cantidad requerida
+            if ($cant > $row['stock_producto']) {
+                echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
+                        $('#resultados').load('../ajax/agregar_tmp_trans.php');
+                    </script>";
+                exit;
+            } else {
+
+                $sql          = "UPDATE tmp_transferencia SET cantidad_tmp='" . $cant . "' WHERE id_producto='" . $id_producto . "' and session_id='" . $session_id . "'";
+                $query_update = mysqli_query($conexion, $sql);
+            }
+            // fin codicion cantaidad
+
         } else {
+            // condicion si el stock e menor que la cantidad requerida
+            if ($cantidad > $stock && $stock >0 ) {
+                echo "  <script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
+                            $('#resultados').load('../ajax/agregar_tmp_trans.php');
+                        </script>";
+                exit;
+            } else {
 
-            $sql          = "UPDATE tmp_transferencia SET cantidad_tmp='" . $cant . "' WHERE id_producto='" . $id_producto . "' and session_id='" . $session_id . "'";
-            $query_update = mysqli_query($conexion, $sql);
+                $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_transferencia (id_producto,cantidad_tmp,session_id) VALUES ('$id_producto','$cantidad','$session_id')");
+            }
+            // fin codicion cantaidad
         }
-        // fin codicion cantaidad
-
-    } else {
-        // condicion si el stock e menor que la cantidad requerida
-        if ($cantidad > $stock ) {
-            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
-        $('#resultados').load('../ajax/agregar_tmp_trans.php');
-    </script>";
-            exit;
-        } else {
-
-            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_transferencia (id_producto,cantidad_tmp,session_id) VALUES ('$id_producto','$cantidad','$session_id')");
-        }
-        // fin codicion cantaidad
     }
+    
 
 }
 if (isset($_GET['id'])) //codigo elimina un elemento del array
