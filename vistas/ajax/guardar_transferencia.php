@@ -8,139 +8,31 @@ if (empty($_POST['or']) || empty($_POST['des'])) {
     //var_dump($_POST);
     $errors[] = "Origen y Destino VACIO";
 } else if (!empty($_POST['or']) || !empty($_POST['des'])) {
-    echo $or;
-    echo $des;
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
     //Archivo de funciones PHP
     require_once "../funciones.php";
     $session_id     = session_id();
-    $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 //Comprobamos si hay archivos en la tabla temporal
-    $sql_count = mysqli_query($conexion, "select * from tmp_ventas where session_id='" . $session_id . "'");
+    $sql_count = mysqli_query($conexion, "select * from tmp_transferencia where session_id='" . $session_id . "'");
     $count     = mysqli_num_rows($sql_count);
     if ($count == 0) {
         echo "<script>
         swal({
-          title: 'No hay Productos agregados en la factura',
+          title: 'No hay Productos a transferir',
           text: 'Intentar nuevamente',
           type: 'error',
           confirmButtonText: 'ok'
       })</script>";
         exit;
     }
-    // escaping, additionally removing everything that could be (html/javascript-) code
-    $id_cliente     = intval($_POST['id_cliente']);
-    $id_comp        = intval($_POST['id_comp']);
-    $id_vendedor    = intval($_SESSION['id_users']);
-    $users          = intval($_SESSION['id_users']);
-    $condiciones    = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['condiciones'], ENT_QUOTES)));
-    $numero_factura = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["factura"], ENT_QUOTES)));
-    $trans          = /*mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));*/null;
-    $resibido       = floatval($_POST['resibido']);
-    $date_added     = date("Y-m-d H:i:s");
-    //Operacion de Creditos
-    if ($condiciones == 4) {
-        $estado = 2;
-    } else {
-        $estado = 1;
-    }
-//Seleccionamos el ultimo compo numero_fatura y aumentamos una
-    $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_ventas order by id_factura desc limit 0,1 ");
-    $rw         = mysqli_fetch_array($sql);
-    $id_factura = $rw['last'] + 1;
-// finde la ultima fatura
-    //Control de la  numero_fatura y aumentamos una
-    /*$query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
-    or die('error ' . mysqli_error($conexion));
-    $count = mysqli_num_rows($query_id);
-
-    if ($count != 0) {
-
-    $data_id = mysqli_fetch_assoc($query_id);
-    $factura = $data_id['factura'] + 1;
-    } else {
-    $factura = 1;
-    }
-
-    $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
-    $factura = "CFF-$buat_id";*/
-// fin de numero de fatura
-    // consulta principal
-    $nums          = 1;
-    $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
-    $sumador_total = 0;
-    $sum_total     = 0;
-    $total_iva0      = 0;
-    $total_iva5      = 0;
-    $total_iva10      = 0;
-    $total_impuesto0 = 0;
-    $total_impuesto5 = 0;
-    $total_impuesto10 = 0;
-    $sub_0=0;
-    $sub_5=0;
-    $sub_10=0;
-    $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+ 
+    $sql           = mysqli_query($conexion, "select * from tmp_transferencia where tmp_transferencia.session_id='" . $session_id . "'");
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
         $id_producto     = $row['id_producto'];
-        $codigo_producto = $row['codigo_producto'];
         $cantidad        = $row['cantidad_tmp'];
-        $desc_tmp        = $row['desc_tmp'];
-        $nombre_producto = $row['nombre_producto'];
-        // control del impuesto por productos.
-        /*if ($row['iva_producto'] == 1) {
-            $p_venta   = $row['precio_tmp'];
-            $p_venta_f = number_format($p_venta, 2); //Formateo variables
-            $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
-            $p_total   = $p_venta_r * $cantidad;
-            $f_items   = rebajas($p_total, $desc_tmp); //Aplicando el descuento
-            /*--------------------------------------------------------------------------------*/
-         /*   $p_total_f = number_format($f_items, 2); //Precio total formateado
-            $p_total_r = str_replace(",", "", $p_total_f); //Reemplazo las comas
-
-            $sum_total += $p_total_r; //Sumador
-            $t_iva = ($sum_total * $impuesto) / 100;
-            $t_iva = number_format($t_iva, 2, '.', '');
-        }*/
-        //end impuesto
-
-        $precio_venta   = $row['precio_tmp'];
-        $costo_producto = $row['costo_producto'];
-        $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
-        //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-        $precio_total   = $precio_venta * $cantidad;
-        $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
-        /*--------------------------------------------------------------------------------*/
-        $precio_total_f = number_format($final_items, 0, '', ''); //Precio total formateado
-        //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-        $sumador_total += $final_items; //Sumador
-        //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
-        if ($row['iva_producto'] == 10) {
-            //$total_iva = iva($precio_venta);
-            $sub_10 += $precio_venta;
-            $total_iva10 = $precio_venta/11;
-            $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
-        } elseif ($row['iva_producto'] == 5) {
-            $sub_5 += $precio_venta;
-            $total_iva5 = $precio_venta/21;
-            $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
-        }else {
-            $sub_0 += $precio_venta;
-            $total_iva0 = $precio_venta;
-            $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
-        }
-        if ($resibido < $sumador_total and $condiciones != 4) {
-            echo "<script>
-            swal({
-              title: 'DINERO RECIBIDO ES MENOR AL MONTO TOTAL',
-              text: 'Intentar Nuevamente',
-              type: 'error',
-              confirmButtonText: 'ok'
-          })</script>";
-            exit;
-        }
 
         //Insert en la tabla detalle_factura
         $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta','$precio_total')");
