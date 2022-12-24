@@ -84,6 +84,29 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
                         <?php
                     //$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
                     //$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
+                     $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
+                     $rowt = mysqli_fetch_array($sql);
+                    if( $rowt == null){
+                        ?>
+                            <script type="text/javascript">
+                                var origen = document.getElementById('id_origen'); 
+                                origen.removeAttribute("disabled");
+
+                                var desti = document.getElementById('id_destino'); 
+                                desti.removeAttribute("disabled");
+                            </script>
+                        <?php
+                    }else{
+                        ?>
+                            <script type="text/javascript">
+                                var e = document.getElementById('id_origen'); 
+                                e.setAttribute('disabled', 'true');
+
+                                var d = document.getElementById('id_destino'); 
+                                d.setAttribute('disabled', 'true');
+                            </script>
+                        <?php
+                    } 
                     $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
                     while ($row = mysqli_fetch_array($sql)) {
                         $id_tmp          = $row["id_tmp"];

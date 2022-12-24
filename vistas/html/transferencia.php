@@ -75,7 +75,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 															<label for="id_origen" class="control-label">Origen:</label>
 															<div class="col-md-2" align="left">	
 																
-																<select id = "id_origen" class = "form-control" name = "id_origen" required autocomplete="off" onchange="getOrigen();">
+																<select id = "id_origen" class = "form-control" name = "id_origen" required autocomplete="off" onchange="getOrigen();" >
 																		<option value="" selected>Seleccione</option>
 																		<option value="productos">Tienda</option>
 																		<option value="feria1">Feria 1</option>
