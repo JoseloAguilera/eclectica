@@ -54,7 +54,7 @@ if ($action == 'ajax') {
                 
             </tr>
             <?php
-while ($row = mysqli_fetch_array($query)) {
+        while ($row = mysqli_fetch_array($query)) {
             //$id_feria           = $row['id_feria'];
             $id_producto        = $row['id_producto'];
             $stock_producto     = $row['stock_producto'];
@@ -90,7 +90,7 @@ while ($row = mysqli_fetch_array($query)) {
                     
                 </tr>
            <?php
-}
+        }
         ?>
        <tr>
                 <td colspan="7">
@@ -103,9 +103,9 @@ while ($row = mysqli_fetch_array($query)) {
         </tr>
         </table>
         </div>
-<?php
-}
-//Este else Fue agregado de Prueba de prodria Quitar
+    <?php
+    }
+    //Este else Fue agregado de Prueba de prodria Quitar
     else {
         ?>
     <div class="alert alert-warning alert-dismissible" role="alert" align="center">

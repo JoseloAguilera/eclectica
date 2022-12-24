@@ -43,6 +43,17 @@ $(document).ready(function() {
             $('#loader').html('');
         }
     })
+
+    $.ajax({
+        url: '../ajax/agregar_tmp_trans.php?action=ajax' + '&or=' + o + '&des=' + q,
+        beforeSend: function(objeto) {
+            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(data) {
+            $("resultados").html(data).fadeIn('slow');
+            $('#loader').html('');
+        }
+    })
     
 }
 

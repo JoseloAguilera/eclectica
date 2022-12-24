@@ -15,8 +15,6 @@ require_once "../funciones.php";
 if (!empty($id) and !empty($cantidad)and !empty($or) and !empty($des)) {
  
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);
-    //$precio_venta = get_row('productos', 'valor1_producto', 'id_producto', $id_producto);
-
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto from $or where id_producto = '$id_producto'");
     $rw    = mysqli_fetch_array($query);
@@ -70,61 +68,61 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
 }
 
 ?>
-<div class="table-responsive">
-    <table class="table table-sm">
-        <thead class="thead-default">
-            <tr>
-                <th class='text-center'>COD</th>
-                <th></th>
-                <th class='text-center'>CANT.</th>
-                <th class='text-center'>DESCRIP.</th>
-              
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-//$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
-//$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
-$sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
-while ($row = mysqli_fetch_array($sql)) {
-    $id_tmp          = $row["id_tmp"];
-    $codigo_producto = $row['codigo_producto'];
-    $id_producto     = $row['id_producto'];
-    $cantidad        = $row['cantidad_tmp'];
-    $nombre_producto = $row['nombre_producto'];
-    $image_path      = $row['image_path'];
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead class="thead-default">
+                        <tr>
+                            <th class='text-center'>COD</th>
+                            <th></th>
+                            <th class='text-center'>CANT.</th>
+                            <th class='text-center'>DESCRIP.</th>
+                        
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                    //$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
+                    //$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
+                    $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
+                    while ($row = mysqli_fetch_array($sql)) {
+                        $id_tmp          = $row["id_tmp"];
+                        $codigo_producto = $row['codigo_producto'];
+                        $id_producto     = $row['id_producto'];
+                        $cantidad        = $row['cantidad_tmp'];
+                        $nombre_producto = $row['nombre_producto'];
+                        $image_path      = $row['image_path'];
 
-    ?>
-    <tr>
-       
-        <td class='text-center'><?php echo $codigo_producto; ?></td>
-        <td class='text-center'>
-                            <?php
-                                if ($image_path == null) {
-                                    echo '<img src="../../img/productos/default.jpg" class="" width="60">';
-                                } else {
-                                    echo '<img src="' . $image_path . '" class="" width="60">';
-                                }
-                            ?>
-                            <!--<img src="<?php echo $image_path; ?>" alt="Product Image" class='rounded-circle' width="60">-->
-        </td>
-        <td class='text-center'><?php echo $cantidad; ?></td>
-        <td class='text-center'><?php echo $nombre_producto; ?></td>
-        <td class='text-center'>
-                <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
-                </a>
-        </td>
-    </tr>
-    <?php
-}
+                        ?>
+                        <tr>
+                        
+                            <td class='text-center'><?php echo $codigo_producto; ?></td>
+                            <td class='text-center'>
+                                                <?php
+                                                    if ($image_path == null) {
+                                                        echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                                                    } else {
+                                                        echo '<img src="' . $image_path . '" class="" width="60">';
+                                                    }
+                                                ?>
+                                                <!--<img src="<?php echo $image_path; ?>" alt="Product Image" class='rounded-circle' width="60">-->
+                            </td>
+                            <td class='text-center'><?php echo $cantidad; ?></td>
+                            <td class='text-center'><?php echo $nombre_producto; ?></td>
+                            <td class='text-center'>
+                                    <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
+                                    </a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
 
 
-?>
+                    ?>
 
-</tbody>
-</table>
-</div>
+                    </tbody>
+                </table>
+            </div>
 <?php 
 //Inicia Control de Permisos
 include "../permisos.php";

@@ -13,7 +13,6 @@ if (isset($_POST['or'])) {$or = $_POST['or'];}
 if (isset($_POST['des'])) {$des = $_POST['des'];}
 
 if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
-
     // consulta para comparar el stock con la cantidad resibida
     $sql_st = "select stock_producto from $or where id_producto = '$id'";
     $query = mysqli_query($conexion, $sql_st);
