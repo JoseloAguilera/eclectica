@@ -156,6 +156,7 @@ $(document).ready(function() {
             $("#resultados_ajaxf").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(datos) {
+            console.log("anda");
             $("#resultados_ajaxf").html(datos);
             $('#guardar_factura').attr("disabled", false);
             //resetea el formulario

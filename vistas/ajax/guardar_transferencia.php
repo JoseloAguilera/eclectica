@@ -45,17 +45,21 @@ if (empty($_POST['or']) || empty($_POST['des'])) {
         if($rw3){
             $old_stock_des = $rw3['stock_producto']; //Cantidad encontrada en el inventario
         }else{
-            $old_stock_des = 0; //Cantidad encontrada en el inventario
+            //en teoria solo pasaria con ferias esto
+            $old_stock_des = 0; 
+            $insert_des = mysqli_query($conexion, "INSERT INTO $des VALUES (NULL,'$id_producto','$old_stock_des')");
+            
         }
         $new_stock_or = $old_stock_or - $cantidad; //Nueva cantidad en el inventario
         $new_stock_des = $old_stock_des + $cantidad; //Nueva cantidad en el inventario
 
-        //$update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+        $update_or      = mysqli_query($conexion, "UPDATE $or SET stock_producto='" . $new_stock_or . "' WHERE id_producto='" . $id_producto . "'"); //Actualizo la nueva cantidad en el inventario origen
+        $update_des     = mysqli_query($conexion, "UPDATE $des SET stock_producto='" . $new_stock_des . "' WHERE id_producto='" . $id_producto . "'"); //Actualizo la nueva cantidad en el inventario destino
         //$nums++;
     }
     // Fin de la consulta Principal
 
-    //$delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
+    $delete = mysqli_query($conexion, "DELETE FROM tmp_transferencia WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
     
     
