@@ -142,26 +142,16 @@ $(document).ready(function() {
     });
 } 
 
-/* $("#datos_factura").submit(function(event) {
+ $("#datos_factura").submit(function(event) {
     $('#guardar_factura').attr("disabled", true);
-    var id_cliente = $("#id_cliente").val();
-    var resibido = $("#resibido").val();
-    if (isNaN(resibido)) {
-        $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL DATO NO ES VALIDO, INTENTAR DE NUEVO')
-        $("#resibido").focus();
-        return false;
-    }
-    if (id_cliente == "") {
-        $.Notification.notify('warning','bottom center','NOTIFICACIÓN', 'DEBE SELECCIONAR UN CLIENTE VALIDO')
-        $("#nombre_cliente").focus();
-        $('#guardar_factura').attr("disabled", false);
-        return false;
-    }
-    var parametros = $(this).serialize();
+    var des = localStorage.getItem("destino");
+    var or = localStorage.getItem("origen");
+    console.log("hola", des, or);
+   
     $.ajax({
         type: "POST",
-        url: "../ajax/guardar_venta.php",
-        data: parametros,
+        url: "../ajax/guardar_transferencia.php",
+        data: "&or=" + or + "&des=" + des,
         beforeSend: function(objeto) {
             $("#resultados_ajaxf").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -169,12 +159,11 @@ $(document).ready(function() {
             $("#resultados_ajaxf").html(datos);
             $('#guardar_factura').attr("disabled", false);
             //resetea el formulario
-            //$('#modal_vuelto').modal('show');
-            $("#datos_factura")[0].reset(); //Recet al formilario de el cliente
+            //$("#datos_factura")[0].reset(); //Recet al formilario de el cliente
             $("#barcode_form")[0].reset(); // Recet al formulario de la fatura
-            $("#resultados").load("../ajax/agregar_tmp.php"); // carga los datos nuevamente
-            $("#f_resultado").load("../ajax/incrementa_factura.php"); // carga la caja de incrementar la factura
-            $("#resultados2").load("../ajax/carga_caja.php"); // carga la caja total del dia
+            $("#resultados").load("../ajax/agregar_tmp_trans.php"); // carga los datos nuevamente
+            //$("#f_resultado").load("../ajax/incrementa_factura.php"); // carga la caja de incrementar la factura
+            //$("#resultados2").load("../ajax/carga_caja.php"); // carga la caja total del dia
             $("#barcode").focus();
             load(1);
             //desaparecer la alerta
@@ -186,7 +175,7 @@ $(document).ready(function() {
         }
     });
     event.preventDefault();
-}) */
+}) 
 /* $("#guardar_cliente").submit(function(event) {
     $('#guardar_datos').attr("disabled", true);
     var parametros = $(this).serialize();

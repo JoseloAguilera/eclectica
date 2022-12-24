@@ -125,15 +125,17 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 															<div class="clearfix"></div>
 														</div>
 																<div class="widget-chart">
-																	<div id="resultados" class='col-md-12' style="margin-top:10px"><!-- Carga los datos ajax -->
-																	</div>															
-															
+																	<form role="form" id="datos_factura">
+																		<div id="resultados" class='col-md-12' style="margin-top:10px"><!-- Carga los datos ajax -->
+																		</div>
+																		<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"> -->
+																		<div class="col-md-12" align="right" style="margin:5px">
+																			<button type="submit" id="guardar_factura" class="btn btn-danger  btn-md waves-effect waves-light"  ><span class="fa fa-save"></span> Guardar</button>
+																			
+																		</div>															
+																	</form>
 																</div>
-														<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"> -->
-														<div class="col-md-12" align="right" style="margin:5px">
-															<button type="submit" id="guardar_factura" class="btn btn-danger  btn-md waves-effect waves-light"  ><span class="fa fa-save"></span> Guardar</button>
-															
-														</div>
+														
 
 														<div class="portlet-heading bg-primary">
 															<h4 class="portlet-title">

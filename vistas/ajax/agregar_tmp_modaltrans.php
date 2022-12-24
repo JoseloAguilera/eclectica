@@ -59,6 +59,7 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
     $delete = mysqli_query($conexion, "DELETE FROM tmp_transferencia WHERE id_tmp='" . $id_tmp . "'");
 }
 //$simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+
 ?>
     <div class="table-responsive">
         <table class="table table-sm">
