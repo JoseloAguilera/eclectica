@@ -61,7 +61,12 @@ if (empty($_POST['or']) || empty($_POST['des'])) {
 
     $delete = mysqli_query($conexion, "DELETE FROM tmp_transferencia WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
-    
+    if ($update_or && $update_des) {
+       
+        $messages[] = "Producto transferido Correctamente.";
+    } else {
+        $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
+    }
     
 } else {
     $errors[] = "Error desconocido.";
