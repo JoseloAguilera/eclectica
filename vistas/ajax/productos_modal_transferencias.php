@@ -15,9 +15,13 @@ if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['t'], ENT_QUOTES)));
     $o        = ($_GET['org']);
-    $aColumns = array('id_producto'); //Columnas de busqueda
+    $aColumns = array('productos.codigo_producto', 'productos.nombre_producto'); //Columnas de busqueda
     $sTable   = "productos";
-    $sWhere   = "WHERE (STOCK_PRODUCTO > 0";
+    if($o == 'productos'){
+        $sWhere   = "WHERE (STOCK_PRODUCTO > 0";
+    }else{
+        $sWhere   = "WHERE ($o.id_producto = productos.id_producto and $o.STOCK_PRODUCTO > 0 ";
+    }
     if ($_GET['t'] != "") {
         $sWhere .= " and ";
         for ($i = 0; $i < count($aColumns); $i++) {
@@ -37,14 +41,17 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $o  $sWhere");
+    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $o where stock_producto >0");
     $row         = mysqli_fetch_array($count_query);
-    
     $numrows     = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+    if($o == 'productos'){
+        $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+    }else{
+        $sql   = "SELECT * FROM  $o, productos $sWhere LIMIT $offset,$per_page";
+    }
     
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
@@ -63,16 +70,16 @@ if ($action == 'ajax') {
                 <?php
         while ($row = mysqli_fetch_array($query)) {
             $id_producto     = $row['id_producto'];
-            //$codigo_producto = $row['codigo_producto'];
-            //$nombre_producto = $row['nombre_producto'];
+            $codigo_producto = $row['codigo_producto'];
+            $nombre_producto = $row['nombre_producto'];
             $stock_producto  = $row['stock_producto'];
             //$precio_venta    = $row["valor1_producto"];
             //$precio_venta    = number_format($precio_venta, 0, '', '');
             //$precio_costo    = $row['costo_producto'];
-            //$image_path      = $row['image_path'];
+            $image_path      = $row['image_path'];
 
             //Obtener descripcion del proveedor
-            $sql_prod = "Select * from productos where id_producto = $id_producto";
+           /*  $sql_prod = "Select * from productos where id_producto = $id_producto";
             $query_prod = mysqli_query($conexion, $sql_prod);
             $row_prod = mysqli_fetch_array($query_prod);
             $codigo_producto = $row_prod['codigo_producto'];
@@ -80,7 +87,7 @@ if ($action == 'ajax') {
             $precio_venta    = $row_prod["valor1_producto"];
             $precio_venta    = number_format($precio_venta, 0, '', '');
             $precio_costo    = $row_prod['costo_producto'];
-            $image_path      = $row_prod['image_path'];
+            $image_path      = $row_prod['image_path']; */
 
             ?>
                     <tr>
