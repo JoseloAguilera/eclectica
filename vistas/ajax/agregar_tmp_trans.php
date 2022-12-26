@@ -66,7 +66,34 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
     $id_tmp = intval($_GET['id']);
     $delete = mysqli_query($conexion, "DELETE FROM tmp_transferencia WHERE id_tmp='" . $id_tmp . "'");
 }
+        $sql_count= "SELECT count(*) AS numrows FROM tmp_transferencia";
+        $count_query = mysqli_query($conexion,  $sql_count);
+        $rowq        = mysqli_fetch_array($count_query);
+        $numrows     = $rowq['numrows'];
 
+        if($numrows==0){
+        ?>
+                <script type="text/javascript">
+                    var origen = document.getElementById('id_origen'); 
+                    origen.removeAttribute("disabled");
+
+                    var desti = document.getElementById('id_destino'); 
+                    desti.removeAttribute("disabled");
+                </script>
+        <?php  
+        }else{
+        ?>
+                <script type="text/javascript">
+                    var e = document.getElementById('id_origen'); 
+                    e.setAttribute('disabled', 'true');
+
+                    var d = document.getElementById('id_destino'); 
+                    d.setAttribute('disabled', 'true');
+                </script>
+<?php  
+
+}
+if ($numrows > 0) {
 ?>
             <div class="table-responsive">
                 <table class="table table-sm">
@@ -84,7 +111,7 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
                         <?php
                     //$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
                     //$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
-                     $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
+                    /*  $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
                      $rowt = mysqli_fetch_array($sql);
                     if( $rowt == null){
                         ?>
@@ -106,7 +133,7 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
                                 d.setAttribute('disabled', 'true');
                             </script>
                         <?php
-                    } 
+                    }  */
                     $sql            = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
                     while ($row = mysqli_fetch_array($sql)) {
                         $id_tmp          = $row["id_tmp"];
@@ -146,6 +173,19 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
                     </tbody>
                 </table>
             </div>
+    <?php
+    }
+    //Este else Fue agregado de Prueba de prodria Quitar
+    else {
+        ?>
+    <div class="alert alert-warning alert-dismissible" role="alert" align="center">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Aviso!</strong> No hay Registro de Productos a transferir
+    </div>
+    <?php
+    }
+// fin else
+?>
 <?php 
 //Inicia Control de Permisos
 include "../permisos.php";

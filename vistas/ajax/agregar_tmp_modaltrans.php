@@ -18,7 +18,7 @@ if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
     $query = mysqli_query($conexion, $sql_st);
     $rw    = mysqli_fetch_array($query);
     $stock = $rw['stock_producto'];
-    
+
     //Comprobamos si ya agregamos ese producto a la tabla tmp_transferencia, si existe, suma stock
     $sql_org = "select * from tmp_transferencia, $or where $or.id_producto = tmp_transferencia.id_producto and tmp_transferencia.id_producto='" . $id . "' and tmp_transferencia.session_id='" . $session_id . "'";
 
@@ -51,6 +51,12 @@ if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
         }
         // fin codicion cantaidad
     }
+
+       //probar ocultar columnas
+       $sql_count= "SELECT count(*) AS numrows FROM tmp_transferencia";
+       $count_query = mysqli_query($conexion,  $sql_count);
+       $rowq        = mysqli_fetch_array($count_query);
+       $numrows     = $rowq['numrows'];
 
 }
 if (isset($_GET['id'])) //codigo elimina un elemento del array
