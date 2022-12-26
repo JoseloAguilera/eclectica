@@ -17,15 +17,19 @@ if ($action == 'ajax') {
     $o        = ($_GET['org']);
     $aColumns = array('id_producto'); //Columnas de busqueda
     $sTable   = "productos";
-    $sWhere   = "";
+    $sWhere   = "WHERE (STOCK_PRODUCTO > 0";
     if ($_GET['t'] != "") {
-        $sWhere = "WHERE (";
+        $sWhere .= " and ";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
+        
         $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ')';
+        $sWhere .= "";
+       
     }
+    $sWhere .= ')';
+
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -41,6 +45,7 @@ if ($action == 'ajax') {
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {

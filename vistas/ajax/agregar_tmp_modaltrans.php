@@ -34,7 +34,7 @@ if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
         } else {
             $sql          = "UPDATE tmp_transferencia SET cantidad_tmp='" . $cant . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
             $query_update = mysqli_query($conexion, $sql);
-            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO TRANSFERIDO CORRECTAMENTE')</script>";
+            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AÑADIDO CORRECTAMENTE')</script>";
          }
         // fin codicion cantaidad
 
@@ -47,7 +47,7 @@ if (!empty($id) and !empty($cantidad) and !empty($or) and !empty($des)) {
             exit;
         } else {
             $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_transferencia (id_producto,cantidad_tmp,session_id) VALUES ('$id','$cantidad','$session_id')");
-            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO TRANSFERIDO CORRECTAMENTE')</script>";
+            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AÑADIDO CORRECTAMENTE')</script>";
         }
         // fin codicion cantaidad
     }
