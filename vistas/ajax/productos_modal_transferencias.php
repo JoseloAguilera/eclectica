@@ -45,7 +45,7 @@ if ($action == 'ajax') {
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
-    echo $sql;
+    
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
