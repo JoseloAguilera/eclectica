@@ -64,7 +64,12 @@ if ($action == 'ajax') {
             $row_prod = mysqli_fetch_array($query_prod);
             $desc_producto = $row_prod['nombre_producto'];
             $image_path    = $row_prod['image_path'];
-           
+            if ($stock_producto >=15) {
+                $stock_producto = "<span class='badge badge-success'>$stock_producto</span>";
+            } else {
+                $stock_producto = "<span class='badge badge-danger'>$stock_producto</span>";
+            }
+
            
             
             
