@@ -117,7 +117,9 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../html/clientes.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $sTable a LEFT JOIN ciudad b ON a.ciudad = b.id_ciudad $sWhere LIMIT $offset,$per_page";
+    //SELECT * FROM clientes a LEFT JOIN ciudad b ON a.ciudad = b.id_ciudad order by a.id_cliente desc LIMIT 0,10;
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -177,16 +179,17 @@ while ($row = mysqli_fetch_array($query)) {
             $hijos = $row['hijos'];
             $pareja = $row['pareja'];
             $int_mayorista = $row['int_mayorista'];
+            $desc_ciudad = $row['nombre_ciudad'];
              //Obtener descripcion de ciudad
 
-             if($ciudad != '' || $ciudad!= null){
+             /* if($ciudad != '' || $ciudad!= null){
                 $sql_ciud = "Select nombre_ciudad from ciudad where id_ciudad = $ciudad";
                 $query_ciud = mysqli_query($conexion, $sql_ciud);
                 $row_ciud = mysqli_fetch_array($query_ciud);
                 $desc_ciudad = $row_ciud['nombre_ciudad'];
              }else{
                 $desc_ciudad = "";
-             }
+             } */
             
 
             ?>

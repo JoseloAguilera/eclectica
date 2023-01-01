@@ -29,7 +29,7 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="nombre" class="control-label">Razón Social:</label>
+											<label for="nombre" class="control-label">* Razón Social:</label>
 											<input type="text" class="form-control UpperCase" id="nombre" name="nombre_cliente" autocomplete="off" required>
 										</div>
 									</div>
@@ -37,13 +37,13 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="fiscal_cliente" class="control-label">RUC:</label>
+											<label for="fiscal_cliente" class="control-label">* RUC:</label>
 											<input type="text" class="form-control" id="fiscal_cliente" name="fiscal_cliente" autocomplete="off" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="telefono_cliente" class="control-label">Telefono:</label>
+											<label for="telefono_cliente" class="control-label">* Telefono:</label>
 											<input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente" autocomplete="off" required>
 										</div>
 									</div>
@@ -52,7 +52,7 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="direccion_cliente" class="control-label">Dirección:</label>
+											<label for="direccion_cliente" class="control-label">* Dirección:</label>
 											<textarea class="form-control UpperCase"  id="direccion_cliente" name="direccion_cliente" maxlength="255" autocomplete="off" required></textarea>
 										</div>
 									</div>
@@ -104,13 +104,13 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="email_cliente" class="control-label">Email:</label>
+											<label for="email_cliente" class="control-label">* Email:</label>
 											<input type="email_cliente" class="form-control" id="email_cliente" name="email_cliente" autocomplete="off" required>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="status_cliente" class="control-label">Estado:</label>
+											<label for="status_cliente" class="control-label">* Estado:</label>
 											<select class="form-control" id="status_cliente" name="status_cliente" required>
 												<option value="">-- Selecciona --</option>
 												<option value="1" selected>Activo</option>
@@ -159,7 +159,7 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="canal_comunicacion" class="control-label">Canal de Comunicación:</label>
+											<label for="canal_comunicacion" class="control-label">* Canal de Comunicación:</label>
 											<select class="form-control" id="canal_comunicacion" name="canal_comunicacion" required>
 												<option value="">-- Selecciona --</option>
 												<option value="WHATSAPP" selected>Whatsapp</option>

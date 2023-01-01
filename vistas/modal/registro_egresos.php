@@ -27,10 +27,20 @@ if (isset($conexion)) {
 											<label for="cuenta_contable" class="control-label">Cta Contable</label>
 											<select class="form-control" id="cuenta_contable" name="cuenta_contable" required>
 												<option value="">-- Selecciona --</option>
-												<option value="pago de salarios" selected>Pago de Salarios</option>
-												<option value="compra de insumos">Compra de Insumos</option>
-												<option value="pago de impuestos">Pago de Impuestos</option>
-												<option value="pago a proveedores">Pago a Proveedores</option>
+												<option value="adquisición de equipos">Adquisición de equipos</option>
+												<option value="arriendo">Arriendo</option>
+												<option value="creditos">Créditos</option>
+												<option value="formación">Formación</option>
+												<option value="impuestos">Impuestos</option>
+												<option value="inscripción en ferias">Inscripción en Ferias</option>
+												<option value="internet">Internet</option>
+												<option value="mantenimiento pagina web">Mantenimiento Página Web</option>
+												<option value="materiales de oficina">Materiales de Oficina</option>
+												<option value="movilidad">Movilidad</option>
+												<option value="pago de salarios">Pago de Salarios</option>
+												<option value="pasarela de pago">Pasarela de Pago</option>
+												<option value="publicidad">Publicidad</option>
+												<option value="servicio de encomienda">Servicio de Encomienda</option>	
 											</select>
 										</div>
 									</div>
