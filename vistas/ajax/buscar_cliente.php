@@ -24,7 +24,7 @@ if ($action == 'ajax') {
     $chk_m = ($_GET['chk_mayo']);
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $aColumns = array('nombre_cliente', 'fiscal_cliente', 'ciudad'); //Columnas de busqueda
+    $aColumns = array('clientes.nombre_cliente', 'clientes.fiscal_cliente', 'ciudad.nombre_ciudad'); //Columnas de busqueda
     $sTable   = "clientes";
     $sWhere   = "";
 
@@ -111,15 +111,20 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    $sqlcount = "SELECT count(*) AS numrows FROM $sTable LEFT JOIN ciudad ON $sTable.ciudad = ciudad.id_ciudad $sWhere";
+    $count_query = mysqli_query($conexion, $sqlcount);
     $row         = mysqli_fetch_array($count_query);
-    $numrows     = $row['numrows'];
+    if($row != null){
+        $numrows     = $row['numrows'];
+    }else{
+        $numrows     = 0;
+    }
+    
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../html/clientes.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable a LEFT JOIN ciudad b ON a.ciudad = b.id_ciudad $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $sTable LEFT JOIN ciudad ON $sTable.ciudad = ciudad.id_ciudad $sWhere LIMIT $offset,$per_page";
     //SELECT * FROM clientes a LEFT JOIN ciudad b ON a.ciudad = b.id_ciudad order by a.id_cliente desc LIMIT 0,10;
-    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
