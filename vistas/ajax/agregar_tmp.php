@@ -4,47 +4,59 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 $session_id = session_id();
 if (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
+if (isset($_POST['or'])) {$or = $_POST['or'];}
 /* Connect To Database*/
 require_once "../db.php";
 require_once "../php_conexion.php";
 //Archivo de funciones PHP
 require_once "../funciones.php";
 
-if (!empty($id) and !empty($cantidad)) {
-  
+if (!empty($id) and !empty($cantidad) and !empty($or)) {
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);
     $precio_venta = get_row('productos', 'valor1_producto', 'id_producto', $id_producto);
     // consulta para comparar el stock con la cantidad resibida
-    $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id_producto'");
-    $rw    = mysqli_fetch_array($query);
-    $stock = $rw['stock_producto'];
-    $inv   = $rw['inv_producto'];
+    //$query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id_producto'");
+    if($or == "productos"){
+        $sql1 = "select stock_producto stock_origen from $or where id_producto = '$id_producto'";
+        $query = mysqli_query($conexion, $sql1);
+        $rw    = mysqli_fetch_array($query);
+        $stock = $rw['stock_origen'];
+    }else{
+        $sql2 = "select $or.stock_producto stock_origen, productos.* from $or, productos where $or.id_producto= productos.id_producto and $or.id_producto = '$id_producto'";
+        $query = mysqli_query($conexion, $sql2);
+        $rw    = mysqli_fetch_array($query);
+        $stock = $rw['stock_origen'];
+    }
+    
+    $inv   = 0;
 
     //Comprobamos si ya agregamos un producto a la tabla tmp_compra
-    $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and  tmp_ventas.id_producto='" . $id_producto . "' and session_id='" . $session_id . "'");
-
+    $sql3 = "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and  tmp_ventas.id_producto='" . $id_producto . "' and session_id='" . $session_id . "'";
+    $comprobar = mysqli_query($conexion, $sql3);
     if ($row = mysqli_fetch_array($comprobar)) {
+        
         $cant = $row['cantidad_tmp'] + $cantidad;
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $row['stock_producto'] and $inv == 0) {
-            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
-            $('#resultados').load('../ajax/agregar_tmp.php');
-        </script>";
-            exit;
+            echo "  <script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE ', 'error')
+                        $('#resultados').load('../ajax/agregar_tmp.php');
+                    </script>";
+            exit;  
         } else {
 
             $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "' WHERE id_producto='" . $id_producto . "' and session_id='" . $session_id . "'";
             $query_update = mysqli_query($conexion, $sql);
+            echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
         }
         // fin codicion cantaidad
 
     } else {
         // condicion si el stock e menor que la cantidad requerida
         if ($cantidad > $stock and $inv == 0) {
-            echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')
-        $('#resultados').load('../ajax/agregar_tmp.php');
-    </script>";
-            exit;
+            echo "  <script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE ', 'error')
+                        $('#resultados').load('../ajax/agregar_tmp.php');
+                    </script>";
+            exit;  
         } else {
 
             $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id) VALUES ('$id_producto','$cantidad','$precio_venta','0','$session_id')");
@@ -89,7 +101,30 @@ $sub_5=0;
 $sub_10=0;
 $subtotal       = 0;
 $sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+$rowt = mysqli_fetch_array($sql);
+if( $rowt == null){
+    ?>
+        <script type="text/javascript">
+            var origen_venta = document.getElementById('id_origen_venta'); 
+            origen_venta.removeAttribute("disabled");
+
+        </script>
+    <?php
+}else{
+    ?>
+        <script type="text/javascript">
+            var e = document.getElementById('id_origen_venta'); 
+            e.setAttribute('disabled', 'true');
+        </script>
+    <?php
+}
+
+
+$sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
 while ($row = mysqli_fetch_array($sql)) {
+    
+
+
     $id_tmp          = $row["id_tmp"];
     $id_producto     = $row['id_producto'];
     $codigo_producto = $row['codigo_producto'];

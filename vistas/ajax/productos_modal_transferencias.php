@@ -50,7 +50,7 @@ if ($action == 'ajax') {
     if($o == 'productos'){
         $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
     }else{
-        $sql   = "SELECT * FROM  $o, productos $sWhere LIMIT $offset,$per_page";
+        $sql   = "SELECT $o.id_feria, $o.id_producto, $o.stock_producto stock_origen,  productos.* FROM  $o, productos $sWhere LIMIT $offset,$per_page";
     }
     
     $query = mysqli_query($conexion, $sql);
@@ -72,7 +72,12 @@ if ($action == 'ajax') {
             $id_producto     = $row['id_producto'];
             $codigo_producto = $row['codigo_producto'];
             $nombre_producto = $row['nombre_producto'];
-            $stock_producto  = $row['stock_producto'];
+            if($o !== 'productos'){
+                $stock_producto  = $row['stock_origen'];
+            }else{
+                $stock_producto  = $row['stock_producto'];
+            }
+            
             //$precio_venta    = $row["valor1_producto"];
             //$precio_venta    = number_format($precio_venta, 0, '', '');
             //$precio_costo    = $row['costo_producto'];

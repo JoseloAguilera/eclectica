@@ -13,6 +13,7 @@ if (empty($_POST['id_cliente'])) {
     $session_id     = session_id();
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 //Comprobamos si hay archivos en la tabla temporal
+    $or        = ($_GET['or']);
     $sql_count = mysqli_query($conexion, "select * from tmp_ventas where session_id='" . $session_id . "'");
     $count     = mysqli_num_rows($sql_count);
     if ($count == 0) {
@@ -44,9 +45,13 @@ if (empty($_POST['id_cliente'])) {
 //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_ventas order by id_factura desc limit 0,1 ");
     $rw         = mysqli_fetch_array($sql);
-    $id_factura = $rw['last'] + 1;
+    if($rw!== null && $rw !== 'undefined'){
+        $id_factura = $rw['last'] + 1;
+    }else{
+        $id_factura = 1;
+    }
 // finde la ultima fatura
-    //Control de la  numero_fatura y aumentamos una
+    //Control de la  numero_fatura y aumentamos una POR QUÉ ESTÁ COMENTADO??????
     /*$query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
     $count = mysqli_num_rows($query_id);
@@ -153,11 +158,13 @@ if (empty($_POST['id_cliente'])) {
         guardar_salidas($date_added, $id_producto, $cantidad, $costo_producto, $saldo_total, $cant_saldo, $costo_saldo, $nuevo_saldo, $date_added, $users, $tipo);
 // FIN
         // ACTUALIZA EN EL STOCK
-        $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
+        $sql2    = mysqli_query($conexion, "select * from $or where id_producto='" . $id_producto . "'");
+        //$sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
         $rw      = mysqli_fetch_array($sql2);
         $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
-        $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+        $update  = mysqli_query($conexion, "UPDATE $or SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "'"); //Actualizo la nueva cantidad en el inventario
+        //$update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario - ANTERIOR
         $nums++;
     }
     // Fin de la consulta Principal
@@ -176,7 +183,7 @@ if (empty($_POST['id_cliente'])) {
         $numero_credito = $numero_cred['cod'];
         $insert_abono = mysqli_query($conexion, "INSERT INTO creditos_abonos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$total_factura','$resibido','$saldo_credito','$users','1','CREDITO INICIAL','$numero_credito','0')");
     }
-    $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans')");
+    $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES ('$id_factura','$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$or')");
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
     if ($condiciones == 5) {

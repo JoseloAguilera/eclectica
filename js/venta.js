@@ -11,11 +11,15 @@ $(document).ready(function() {
 });
 
 function load(page) {
+    
+    var o = localStorage.getItem("origen_venta");
     var q = $("#q").val();
     var t = $("#t").val();
+    $("#id_origen_venta").val(o);
+    
     $("#loader").fadeIn('slow');
     $.ajax({
-        url: '../ajax/productos_modal_ventas.php?action=ajax&page=' + page + '&q=' + q,
+        url: '../ajax/productos_modal_ventas.php?action=ajax&page=' + page + '&q=' + q + '&org=' + o,
         beforeSend: function(objeto) {
             $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -24,6 +28,10 @@ function load(page) {
             $('#loader').html('');
         }
     })
+    if(o != null){
+        var boton = document.getElementById('test');
+        boton.removeAttribute("disabled");
+    }
     $.ajax({
         url: '../ajax/clientes_modal_ventas.php?action=ajax&page=' + page + '&t=' + t,
         beforeSend: function(objeto) {
@@ -39,11 +47,12 @@ function load(page) {
 
 
 function agregar(id) {
+   
     var precio_venta = document.getElementById('precio_venta_' + id).value;
     var cantidad = document.getElementById('cantidad_' + id).value;
     var costo = document.getElementById('precio_costo_' + id).value;
+    var or = localStorage.getItem("origen_venta");
     precio_costo = parseInt(costo, 10);
-    //console.log(precio_costo);
     //Inicia validacion
     if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
@@ -64,7 +73,7 @@ function agregar(id) {
     $.ajax({
         type: "POST",
         url: "../ajax/agregar_tmp_modalventas.php",
-        data: "id=" + id + "&precio_venta=" + precio_venta + "&cantidad=" + cantidad + "&operacion=" + 2,
+        data: "id=" + id + "&precio_venta=" + precio_venta + "&cantidad=" + cantidad + "&operacion=" + 2 + "&or=" + or,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -80,6 +89,8 @@ $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
     var cantidad = $("#barcode_qty").val();
     var id_sucursal = 0;
+    var or = localStorage.getItem("origen_venta");
+   
     //Inicia validacion
     if (isNaN(cantidad)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
@@ -91,7 +102,8 @@ $("#barcode_form").submit(function(event) {
         'operacion':1,
         'id': id,
         'id_sucursal': id_sucursal,
-        'cantidad': cantidad
+        'cantidad': cantidad,
+        'or': or
     };
     $.ajax({
         type: "POST",
@@ -112,10 +124,11 @@ $("#barcode_form").submit(function(event) {
 })
 
 function eliminar(id) {
+    var or = localStorage.getItem("origen_venta");
     $.ajax({
         type: "GET",
         url: "../ajax/agregar_tmp.php",
-        data: "id=" + id,
+        data: "id=" + id + "&or=" + or,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
@@ -129,6 +142,7 @@ $("#datos_factura").submit(function(event) {
     $('#guardar_factura').attr("disabled", true);
     var id_cliente = $("#id_cliente").val();
     var resibido = $("#resibido").val();
+    var or = localStorage.getItem("origen_venta");
     if (isNaN(resibido)) {
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL DATO NO ES VALIDO, INTENTAR DE NUEVO')
         $("#resibido").focus();
@@ -143,7 +157,8 @@ $("#datos_factura").submit(function(event) {
     var parametros = $(this).serialize();
     $.ajax({
         type: "POST",
-        url: "../ajax/guardar_venta.php",
+        //url: "../ajax/guardar_venta.php+&or=" + $or,
+        url: "../ajax/guardar_venta.php?or=" + or,
         data: parametros,
         beforeSend: function(objeto) {
             $("#resultados_ajaxf").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -256,8 +271,8 @@ function imprimir_factura(user_id) {
     VentanaCentrada('../pdf/documentos/corte_caja.php?user_id=' + user_id, 'Corte', '', '724', '568', 'true');
 }
 
-function getFeria(valor){
-    var fer = document.getElementById('id_feria').value;
-    localStorage.setItem('feria', fer);
-    console.log("valor", fer);
+function getOrigen(){
+    var origenVenta = document.getElementById('id_origen_venta').value;
+    localStorage.setItem('origen_venta', origenVenta);
+    load(1);
 }

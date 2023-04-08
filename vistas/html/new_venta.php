@@ -63,19 +63,6 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 										</div>
 									</div>-->
 
-									<div class="btn-group dropdown">
-                                        <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <!-- <label for="id_comp" class="control-label">Comprobante:</label> -->
-                                                    <select id = "id_feria" class = "form-control" name = "id_feria" required autocomplete="off" onchange="getFeria();">
-                                                        	<option value="">-Seleccione-</option>
-                                                            <option value="feria1">Feria 1</option>
-                                                            <option value="feria2">Feria 2</option>
-                                                            
-                                                    </select>
-                                                </div>
-                                        </div> 
-                                    </div>
 
 
 
@@ -101,13 +88,26 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
 													<form class="form-horizontal" role="form" id="barcode_form">
 														<div class="form-group row">
-															<label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
+															<label for="id_origen_venta" class="control-label">Origen:</label>
+															<div class="col-md-2" align="left">																	
+																<select id = "id_origen_venta" class = "form-control" name = "id_origen_venta" required autocomplete="off" onchange="getOrigen();"  >
+																		<option value="" selected>Seleccione</option>
+																		<option value="productos">Facebook</option>
+																		<option value="productos">Instagram</option>
+																		<option value="feria1">Feria 1</option>
+																		<option value="feria2">Feria 2</option>
+																		
+																		
+																</select>
+															</div>
+
+															<label for="barcode_qty" class="control-label">Cant:</label>
 															<div class="col-md-2">
 																<input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
 															</div>
 
 															<label for="condiciones" class="control-label">Codigo:</label>
-															<div class="col-md-5" align="left">
+															<div class="col-md-3" align="left">
 																<div class="input-group">
 																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
 																	<span class="input-group-btn">
@@ -116,9 +116,10 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																</div>
 															</div>
 															<div class="col-md-2">
-																<button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
+																<button type="button" id="test" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar" disabled="true">
 																	<span class="fa fa-search"></span> Buscar
 																</button>
+																
 															</div>
 														</div>
 													</form>
@@ -269,9 +270,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 function agregar_cliente(id,nombre,ruc, correo) {
     //var id_cliente = id;
-    console.log(id);
-	console.log(nombre);
-	console.log(ruc);
+    
 	var id_cliente = String(id);
 	$('#id_cliente').val(id_cliente);
 	$("#nombre_cliente").val(nombre);

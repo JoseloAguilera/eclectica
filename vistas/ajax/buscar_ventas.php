@@ -53,6 +53,7 @@ if ($action == 'ajax') {
           <table class="table table-sm table-striped">
              <tr  class="info">
                 <th># Factura</th>
+                <th>Origen</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Vendedor</th>
@@ -64,6 +65,7 @@ if ($action == 'ajax') {
             <?php
 while ($row = mysqli_fetch_array($query)) {
             $id_factura       = $row['id_factura'];
+            $origen           = $row['origen'];
             $numero_factura   = $row['numero_factura'];
             $fecha            = date("d/m/Y", strtotime($row['fecha_factura']));
             $nombre_cliente   = $row['nombre_cliente'];
@@ -73,14 +75,20 @@ while ($row = mysqli_fetch_array($query)) {
             $estado_factura   = $row['estado_factura'];
             if ($estado_factura == 1) {
                 $text_estado = "Pagada";
-                $label_class = 'badge-success';} else {
+                $label_class = 'badge-success';} else if($estado_factura == 0){
                 $text_estado = "Pendiente";
-                $label_class = 'badge-danger';}
+                $label_class = 'badge-warning';} else{
+                    $text_estado = "Anulado";
+                    $label_class = 'badge-danger';}
             $total_venta    = $row['monto_factura'];
             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+            if($origen =='productos' || $origen =='' || $origen ==null) $text_origen= "Tienda";
+            if($origen =='feria1') $text_origen= "Feria 1";
+            if($origen =='feria2') $text_origen= "Feria 2";
             ?>
                         <tr>
                          <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
+                         <td><?php echo $text_origen; ?></td>
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre_cliente; ?></td>
                          <td><?php echo $nombre_vendedor; ?></td>
@@ -91,12 +99,12 @@ while ($row = mysqli_fetch_array($query)) {
                             <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                <?php if ($permisos_editar == 1) {?>
-                               <a class="dropdown-item" href="editar_venta.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                               <!-- <a class="dropdown-item" href="editar_venta.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a> -->
                                <a class="dropdown-item" href="#" onclick="print_ticket('<?php echo $id_factura; ?>')"><i class='fa fa-print'></i> Imprimir Ticket</a>
                                <a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir Factura</a>
                                <?php }
-            if ($permisos_eliminar == 1) {?>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Anular Factura</a>
+                                if ($permisos_eliminar == 1 && $estado_factura==1) {?>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>" data-origen="<?php echo $row['origen'];?>"><i class='fa fa-trash'></i> Anular Factura</a>
                                <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                <?php }?>
 

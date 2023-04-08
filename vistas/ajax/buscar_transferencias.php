@@ -29,12 +29,16 @@ if ($action == 'ajax') {
     $per_page  = 10; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
+    $numrows   = 0;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable ");
-    $row         = mysqli_fetch_array($count_query);
-    //var_dump($row);
-    $numrows     = $row['numrows'];
-    $total_pages = ceil($numrows / $per_page);
+    if($sTable!=='null' && $sTable!==""){
+        
+        $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable ");
+        $row         = mysqli_fetch_array($count_query);
+        $numrows     = $row['numrows'];
+        $total_pages = ceil($numrows / $per_page);
+    }
+    
     $reload      = '../html/transferencia.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable LIMIT $offset,$per_page";
@@ -70,9 +74,6 @@ if ($action == 'ajax') {
                 $stock_producto = "<span class='badge badge-danger'>$stock_producto</span>";
             }
 
-           
-            
-            
             ?>
                 <input type="hidden" value="<?php echo $id_producto; ?>" id="id_producto<?php  ?>">
                 <input type="hidden" value="<?php echo $stock_producto; ?>" id="stock_producto<?php echo $stock_producto; ?>">
@@ -86,9 +87,7 @@ if ($action == 'ajax') {
                             } else {
                                 echo '<img src="' . $image_path . '" class="" width="60">';
                             }
-
-            ?>
-                       
+            ?>        
                     </td>
                     <td><?php echo $desc_producto; ?></td>
                     <td ><?php echo $stock_producto; ?></td>

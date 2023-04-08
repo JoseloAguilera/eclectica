@@ -19,17 +19,26 @@
 		        }
 		    })
 		}
+		
 		$('#dataDelete').on('show.bs.modal', function(event) {
 		    var button = $(event.relatedTarget) // Botón que activó el modal
 		    var id = button.data('id') // Extraer la información de atributos de datos
-		    var modal = $(this)
-		    modal.find('#id_factura').val(id)
+			var org = button.data('origen');
+		    var modal = $(this);
+		    modal.find('#id_factura').val(id);
+			//var parametros = $(this).serialize();
+			parametros = {
+				'id_factura': id,
+				'origen': org
+			};
 		})
+		
 		$("#eliminarDatos").submit(function(event) {
-		    var parametros = $(this).serialize();
-		    $.ajax({
+		    
+		     $.ajax({
 		        type: "POST",
-		        url: "../ajax/eliminar_factura.php",
+		        url: "../ajax/anular_factura.php",
+		        /* url: "../ajax/eliminar_factura.php", */
 		        data: parametros,
 		        beforeSend: function(objeto) {
 		            $(".datos_ajax_delete").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -46,7 +55,7 @@
 		            load(1);
 		        }
 		    });
-		    event.preventDefault();
+		    event.preventDefault(); 
 		});
 
 		function imprimir_factura(id_factura) {

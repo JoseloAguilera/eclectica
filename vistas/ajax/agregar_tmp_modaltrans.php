@@ -83,7 +83,6 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
                 <?php
 
     $sql        = mysqli_query($conexion, "select * from productos, tmp_transferencia where productos.id_producto=tmp_transferencia.id_producto and tmp_transferencia.session_id='" . $session_id . "'");
-    
     $rowt = mysqli_fetch_array($sql);
                     if( $rowt == null){
                         ?>

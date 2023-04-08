@@ -80,7 +80,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																		<option value="productos">Tienda</option>
 																		<option value="feria1">Feria 1</option>
 																		<option value="feria2">Feria 2</option>
-																		<option value="paginaweb">Página Web</option>
+																		
 																		
 																</select>
 															</div>

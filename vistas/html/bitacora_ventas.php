@@ -54,7 +54,8 @@ $ventas = 1;
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
 							<?php
-include "../modal/eliminar_factura.php";
+include "../modal/anular_factura.php";
+/* include "../modal/eliminar_factura.php"; */
     ?>
 
 								<form class="form-horizontal" role="form" id="datos_cotizacion">

@@ -14,10 +14,11 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+    $o        = ($_GET['org']);
     //var_dump($q);
-    $aColumns = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
+    $aColumns = array('productos.codigo_producto', 'productos.nombre_producto');  //Columnas de busqueda
     $sTable   = "productos";
-    $sWhere   = "";
+    /* $sWhere   = "";
     if ($_GET['q'] != "") {
         $sWhere = "WHERE (";
         for ($i = 0; $i < count($aColumns); $i++) {
@@ -25,7 +26,26 @@ if ($action == 'ajax') {
         }
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
+    } */
+
+    if($o == 'productos'){
+        $sWhere   = "WHERE (STOCK_PRODUCTO > 0";
+    }else{
+        $sWhere   = "WHERE ($o.id_producto = productos.id_producto and $o.STOCK_PRODUCTO > 0 ";
     }
+    if ($_GET['q'] != "") {
+        $sWhere .= " and ";
+        for ($i = 0; $i < count($aColumns); $i++) {
+            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+        }
+        
+        $sWhere = substr_replace($sWhere, "", -3);
+        $sWhere .= "";
+       
+    }
+    $sWhere .= ')';
+
+
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -33,13 +53,25 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    if($o == 'productos'){
+        $sqlnum = "SELECT count(*) AS numrows FROM $o  $sWhere";
+    }else{
+        $sqlnum = "SELECT count(*) AS numrows FROM $o, productos  $sWhere";
+    }
+   
+    $count_query = mysqli_query($conexion, $sqlnum);
     $row         = mysqli_fetch_array($count_query);
     $numrows     = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../venta/prueba.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    //$sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+
+    if($o == 'productos'){
+        $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+    }else{
+        $sql   = "SELECT $o.id_feria, $o.id_producto, $o.stock_producto stock_origen, productos.* FROM  $o, productos $sWhere LIMIT $offset,$per_page";
+    }
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -57,11 +89,16 @@ if ($action == 'ajax') {
                     <th class='text-center' style="width: 36px;"></th>
                 </tr>
                 <?php
-while ($row = mysqli_fetch_array($query)) {
+        while ($row = mysqli_fetch_array($query)) {
             $id_producto     = $row['id_producto'];
             $codigo_producto = $row['codigo_producto'];
             $nombre_producto = $row['nombre_producto'];
-            $stock_producto  = $row['stock_producto'];
+            if($o == 'productos'){
+                $stock_producto  = $row['stock_producto'];
+            }else{
+                $stock_producto  = $row['stock_origen'];
+            }
+            
             $precio_venta    = $row["valor1_producto"];
             $precio_venta    = number_format($precio_venta, 0, '', '');
             $precio_costo    = $row['costo_producto'];
@@ -70,7 +107,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <tr>
                         <td class='text-center'>
                         <?php
-if ($image_path == null) {
+            if ($image_path == null) {
                 echo '<img src="../../img/productos/default.jpg" class="" width="60">';
             } else {
                 echo '<img src="' . $image_path . '" class="" width="60">';
@@ -102,7 +139,7 @@ if ($image_path == null) {
                 <tr>
                     <td colspan=6><span class="pull-right">
                     <?php
-echo paginate($reload, $page, $total_pages, $adjacents);
+    echo paginate($reload, $page, $total_pages, $adjacents);
         ?></span></td>
                 </tr>
               </table>
