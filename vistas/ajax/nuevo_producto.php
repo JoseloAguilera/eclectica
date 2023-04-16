@@ -1,8 +1,11 @@
 <?php
-include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
+include 'is_logged.php';
+
 /*Inicia validacion del lado del servidor*/
+//var_dump($_POST);
+
 if (empty($_POST['codigo'])) {
-    $errors[] = "Código vacío";
+    $errors[] = "Código vacíoO";
 } else if (empty($_POST['nombre'])) {
     $errors[] = "Nombre del producto vacío";
 } else if ($_POST['linea'] == "") {
@@ -32,7 +35,7 @@ if (empty($_POST['codigo'])) {
     !empty($_POST['costo']) &&
     !empty($_POST['precio']) &&
     !empty($_POST['minimo'])
-) {
+) { 
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
@@ -42,6 +45,7 @@ if (empty($_POST['codigo'])) {
     $codigo      = mysqli_real_escape_string($conexion, (strip_tags($_POST["codigo"], ENT_QUOTES)));
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["nombre"], ENT_QUOTES)));
     $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["descripcion"], ENT_QUOTES)));
+    $image_path = mysqli_real_escape_string($conexion, (strip_tags($_POST["imagen"], ENT_QUOTES)));
     $linea       = intval($_POST['linea']);
     $proveedor   = intval($_POST['proveedor']);
     $estado      = intval($_POST['estado']);
@@ -84,11 +88,24 @@ if (empty($_POST['codigo'])) {
                                         WHERE codigo_producto='" . $codigo . "'";
         $query_update = mysqli_query($conexion, $sql);
     } else {*/
+    /*DESDE AQUI INTEGRACION IMAGE PRODUCT
+    $target_dir    = "../../img/productos/";
+    $image_name    = time() . "_" . basename($_FILES["imagefile"]["name"]);
+    $target_file   = $target_dir . $image_name;
+    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+    $imageFileZise = $_FILES["imagefile"]["size"];
+
+
+
+
+
+        //HASTA AQUI */
+
         $sql = "INSERT INTO productos (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, 
                             id_proveedor, inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, 
-                            valor1_producto,valor2_producto,valor3_producto, stock_producto,stock_min_producto, date_added,id_imp_producto) 
+                            valor1_producto,valor2_producto,valor3_producto, stock_producto,stock_min_producto, date_added, image_path, id_imp_producto) 
                             VALUES ('$codigo','$nombre','$descripcion','$linea','$proveedor','$inv','$impuesto','$estado','$costo','$utilidad',
-                            '$precio_venta','$precio_mayoreo','$precio_especial','$stock','$stock_minimo','$date_added','0')";
+                            '$precio_venta','$precio_mayoreo','$precio_especial','$stock','$stock_minimo','$date_added','$image_path','0')";
         //var_dump($sql);
         //echo $sql;
 

@@ -5,9 +5,10 @@ include "is_logged.php"; //Archivo comprueba si el usuario esta logueado
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
-$query_id = mysqli_query($conexion, "SELECT RIGHT(codigo_producto,6) as product_id FROM productos
-  ORDER BY codigo_producto DESC LIMIT 1")
+//$query_id = mysqli_query($conexion, "SELECT RIGHT(codigo_producto,6) as product_id FROM productos  ORDER BY codigo_producto DESC LIMIT 1")
+$query_id = mysqli_query($conexion, "select LAST_INSERT_ID(id_producto) as product_id from productos order by id_producto desc limit 0,1")
 or die('error ' . mysqli_error($conexion));
+//select LAST_INSERT_ID(id_producto) as product_id from productos order by id_producto desc limit 0,1;
 $count = mysqli_num_rows($query_id);
 if ($count != 0) {
     $data_id    = mysqli_fetch_assoc($query_id);
@@ -16,8 +17,8 @@ if ($count != 0) {
     $product_id = 1;
 }
 
-$buat_id    = str_pad($product_id, 5, STR_PAD_LEFT);
-$product_id = "$buat_id";
+/*$buat_id    = str_pad($product_id, 5, STR_PAD_LEFT);
+$product_id = "$buat_id";*/ 
 //$product_id    = intval($_REQUEST['product_id']);
 //$product_id    = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["product_id"], ENT_QUOTES)));
 $target_dir    = "../../img/productos/";
@@ -42,11 +43,14 @@ if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jp
         move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_file);
         $imagen     = basename($_FILES["imagefile"]["name"]);
         $img_update = "image_path='../../img/productos/$image_name' ";
+        //var_dump($img_update);
+        //var_dump($product_id);
 
     } else { $img_update = "";}
 
     // check if user or email address already exists
     $sql                   = "SELECT * FROM productos WHERE codigo_producto ='" . $product_id . "';";
+   // var_dump($sql);
     $query_check_user_name = mysqli_query($conexion, $sql);
     $query_check_user      = mysqli_num_rows($query_check_user_name);
     $date_added            = date("Y-m-d H:i:s");
@@ -63,6 +67,7 @@ if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jp
     if ($query_new_insert) {
         ?>
                         <img class="thumb-img" width="200" src="../../img/productos/<?php echo $image_name; ?>">
+                        <input type="hidden" name="imagen" value="../../img/productos/<?php echo $image_name; ?>">
                         <?php
 } else {
         $errors[] = "Lo sentimos, actualización falló. Intente nuevamente. " . mysqli_error($conexion);
@@ -71,6 +76,7 @@ if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jp
 }
 
 ?>
+
 
     <?php
 if (isset($errors)) {
@@ -83,20 +89,20 @@ foreach ($errors as $error) {
     }
     ?>
                                         </div>
-                                            <?php
+<?php
 }
 ?>
-                                    <?php
-if (isset($messages)) {
-    ?>
-                                        <div class="alert alert-success">
-                                            <strong>Aviso! </strong>
-                                            <?php
-foreach ($messages as $message) {
-        echo $message;
+<?php
+    if (isset($messages)) {
+?>
+                 <div class="alert alert-success">
+                    <strong>Aviso! </strong>
+                        <?php
+                            foreach ($messages as $message) {
+                                    echo $message;
+                            }
+                        ?>
+                </div>
+<?php
     }
-    ?>
-                                        </div>
-                                            <?php
-}
 ?>

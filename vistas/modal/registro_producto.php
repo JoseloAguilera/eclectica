@@ -202,6 +202,7 @@ if (isset($conexion)) {
 											<label for="image" class="col-sm-2 control-label">Imagen</label>
 											<div class="col-sm-10">
 												<input type="file" class='form-control' name="imagefile" id="imagefile" onchange="upload_image(<?php echo $product_id; ?>);">
+												
 											</div>
 										</div>
 									</div>

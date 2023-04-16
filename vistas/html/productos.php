@@ -277,11 +277,12 @@ if ($permisos_editar == 1) {
 			var file = inputFileImage.files[0];
 			var data = new FormData();
 			data.append('imagefile',file);
-
+			//console.log('data', data);
 
 
 			$.ajax({
 					url: "../ajax/imagen_product_ajax.php",        // Url to which the request is send
+					//url: "../ajax/nuevo_producto.php",        // Url to which the request is send
 					type: "POST",             // Type of request to be send, called as method
 					data: data, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
 					contentType: false,       // The content type used when sending data to the server.
@@ -289,6 +290,7 @@ if ($permisos_editar == 1) {
 					processData:false,        // To send DOMDocument or non processed data file it is set to false
 					success: function(data)   // A function to be called if request succeeds
 					{
+						
 						$("#load_img").html(data);
 
 					}

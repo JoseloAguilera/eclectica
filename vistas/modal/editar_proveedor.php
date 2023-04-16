@@ -68,9 +68,17 @@ if (isset($conexion)) {
 											<label for="mod_rubro" class="control-label">Rubro:</label>
 											<select class="form-control" id="mod_rubro" name="mod_rubro" required>
 												<option value="" >-- Selecciona --</option>
-												<option value="Cuero">Cuero</option>
+												<option value="Cuero" >Cuero</option>
 												<option value="Hilo Encerado">Hilo Encerado</option>
+												<option value="Hilo Chino" >Hilo Chino</option>
+												<option value="Dijes y Cuentas" >Dijes y Cuentas</option>
+												<option value="Resina" >Resina</option>
+												<option value="Cristales" >Cristales</option>
+												<option value="Packaging" >Packaging</option>
 												<option value="Productos Terminados" >Prod. Terminados</option>
+												<option value="Marketing Digital" >Marketing Digital</option>
+												<option value="Diseño Grafico" >Diseño Gráfico</option>
+												<option value="Informatica" >Informática</option>
 											</select>
 										</div>
 									</div>
