@@ -58,11 +58,12 @@ if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jp
         $sql              = "UPDATE productos SET $img_update WHERE codigo_producto='$product_id';";
         $query_new_insert = mysqli_query($conexion, $sql);
     } else {
-        $sql_pro              = "INSERT INTO productos (codigo_producto, date_added) VALUES ('$product_id','$date_added')";
+       /*  $sql_pro              = "INSERT INTO productos (codigo_producto, date_added) VALUES ('$product_id','$date_added')";
         $query_new_insert_pro = mysqli_query($conexion, $sql_pro);
 
         $sql              = "UPDATE productos SET $img_update WHERE codigo_producto='$product_id';";
-        $query_new_insert = mysqli_query($conexion, $sql);
+        $query_new_insert = mysqli_query($conexion, $sql); */
+        $query_new_insert = "ok";
     }
     if ($query_new_insert) {
         ?>
