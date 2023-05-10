@@ -5,3 +5,6 @@ define('DB_USER', 'root'); //Usuario de tu base de datos
 define('DB_PASS', ''); //Contraseña del usuario de la base de datos
 define('DB_NAME', 'sist_eclectica'); //Nombre de la base de datos
 ?>
+
+
+//comentariosss
