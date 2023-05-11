@@ -34,13 +34,13 @@ if ($action == 'ajax') {
         $sWhere   = "WHERE ($o.id_producto = productos.id_producto and $o.STOCK_PRODUCTO > 0 ";
     }
     if ($_GET['q'] != "") {
-        $sWhere .= " and ";
+        $sWhere .= " and (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
         
         $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= "";
+        $sWhere .= ")";
        
     }
     $sWhere .= ')';
@@ -68,10 +68,11 @@ if ($action == 'ajax') {
     //$sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
 
     if($o == 'productos'){
-        $sql   = "SELECT * FROM  $o $sWhere LIMIT $offset,$per_page";
+        $sql   = "SELECT * FROM  $o $sWhere order by nombre_producto asc LIMIT $offset,$per_page ";
     }else{
-        $sql   = "SELECT $o.id_feria, $o.id_producto, $o.stock_producto stock_origen, productos.* FROM  $o, productos $sWhere LIMIT $offset,$per_page";
+        $sql   = "SELECT $o.id_feria, $o.id_producto, $o.stock_producto stock_origen, productos.* FROM  $o, productos $sWhere order by productos.nombre_producto asc LIMIT $offset,$per_page";
     }
+    var_dump($sql);
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {

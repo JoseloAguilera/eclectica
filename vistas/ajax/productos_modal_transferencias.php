@@ -23,13 +23,13 @@ if ($action == 'ajax') {
         $sWhere   = "WHERE ($o.id_producto = productos.id_producto and $o.STOCK_PRODUCTO > 0 ";
     }
     if ($_GET['t'] != "") {
-        $sWhere .= " and ";
+        $sWhere .= " and (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
         
         $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= "";
+        $sWhere .= ")";
        
     }
     $sWhere .= ')';
