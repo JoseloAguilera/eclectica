@@ -29,7 +29,7 @@ if ($action == 'ajax') {
         }
         
         $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ")";
+        $sWhere .= ")"; 
        
     }
     $sWhere .= ')';
