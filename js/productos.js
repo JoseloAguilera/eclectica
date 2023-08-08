@@ -35,6 +35,14 @@
 		            load(1);
 		            //resetea el formulario
 		            $("#guardar_producto")[0].reset();
+
+					document.getElementById("imagen").value="../../img/productos/default.jpg";
+					document.getElementById("thumb-img").src="../../img/productos/default.jpg";
+					
+					
+				
+					//document.getElementById("thumb-img").value="";
+					
 		            //desaparecer la alerta
 		            window.setTimeout(function() {
 		                $(".alert").fadeTo(500, 0).slideUp(500, function() {

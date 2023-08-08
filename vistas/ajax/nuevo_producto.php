@@ -24,6 +24,8 @@ if (empty($_POST['codigo'])) {
     $errors[] = "Selecciona el impuesto del producto";
 } else if ($_POST['inv'] == "") {
     $errors[] = "Selecciona Maneja Inventario";
+/* } else if (empty($_POST['imagen'])) {
+    $image_path = "../../img/productos/default.jpg"; */
 } else if (
     !empty($_POST['codigo']) &&
     !empty($_POST['nombre']) &&
@@ -45,7 +47,12 @@ if (empty($_POST['codigo'])) {
     $codigo      = mysqli_real_escape_string($conexion, (strip_tags($_POST["codigo"], ENT_QUOTES)));
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["nombre"], ENT_QUOTES)));
     $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["descripcion"], ENT_QUOTES)));
-    $image_path = mysqli_real_escape_string($conexion, (strip_tags($_POST["imagen"], ENT_QUOTES)));
+    if (isset($_POST['imagen'])) {
+        $image_path = mysqli_real_escape_string($conexion, (strip_tags($_POST["imagen"], ENT_QUOTES)));
+    }else{
+        $image_path = "";
+    }
+ 
     $linea       = intval($_POST['linea']);
     $proveedor   = intval($_POST['proveedor']);
     $estado      = intval($_POST['estado']);
@@ -166,7 +173,7 @@ foreach ($errors as $error) {
 if (isset($messages)) {
 
     ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible" role="alert"> 
             <strong>¡Bien hecho!</strong>
             <?php
 foreach ($messages as $message) {

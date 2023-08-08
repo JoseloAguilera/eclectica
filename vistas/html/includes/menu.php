@@ -99,6 +99,7 @@
 										<li><a href="../html/kardex.php">Kardex</a></li>
 										<li><a href="../html/ajustes.php">Ajuste de Inventario</a></li>
 										<li><a href="../html/transferencia.php">Transferencia</a></li>
+										<li><a href="../html/produccion.php">Producción</a></li>
 									</ul>
 								</li>
 

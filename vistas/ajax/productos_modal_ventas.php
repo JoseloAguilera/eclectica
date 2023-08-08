@@ -72,7 +72,7 @@ if ($action == 'ajax') {
     }else{
         $sql   = "SELECT $o.id_feria, $o.id_producto, $o.stock_producto stock_origen, productos.* FROM  $o, productos $sWhere order by productos.nombre_producto asc LIMIT $offset,$per_page";
     }
-    var_dump($sql);
+   // var_dump($sql);
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {

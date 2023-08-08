@@ -67,8 +67,8 @@ if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jp
     }
     if ($query_new_insert) {
         ?>
-                        <img class="thumb-img" width="200" src="../../img/productos/<?php echo $image_name; ?>">
-                        <input type="hidden" name="imagen" value="../../img/productos/<?php echo $image_name; ?>">
+                        <img class="thumb-img" id="thumb-img" width="200" src="../../img/productos/<?php echo $image_name; ?>">
+                        <input type="hidden" name="imagen" id="imagen" value="../../img/productos/<?php echo $image_name; ?>">
                         <?php
 } else {
         $errors[] = "Lo sentimos, actualización falló. Intente nuevamente. " . mysqli_error($conexion);
