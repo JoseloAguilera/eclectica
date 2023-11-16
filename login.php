@@ -54,7 +54,7 @@ if ($login->isUserLoggedIn() == true) {
         <div class="wrapper-page">
 
             <div align-items="center">
-                <img src="img/logo.png" class="img-responsive" alt="profile-image" width="400px" height="100px">
+                <img src="img/logojoy.png" class="img-responsive" alt="profile-image" width="300px" >
             </div><br>
 
             <form method="post" accept-charset="utf-8" action="login.php" name="loginform" class="form-signin">

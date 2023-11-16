@@ -4,7 +4,7 @@
 	<!-- LOGO -->
 	<div class="topbar-left">
 		<div class="text-center">
-			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>ECLÉCTICA</span></a>
+			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>FC JOYERIA</span></a>
 			<?php //	var_dump($DateAndTime); ?>
 		</div>
 	</div>
@@ -98,8 +98,8 @@
 										<li><a href="../html/productos.php">Productos</a></li>
 										<li><a href="../html/kardex.php">Kardex</a></li>
 										<li><a href="../html/ajustes.php">Ajuste de Inventario</a></li>
-										<li><a href="../html/transferencia.php">Transferencia</a></li>
-										<li><a href="../html/produccion.php">Producción</a></li>
+									
+										
 									</ul>
 								</li>
 
