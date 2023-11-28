@@ -24,7 +24,7 @@
 
 <!-- Include Date Range Picker -->
 <script src="../../assets/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="../../assets/plugins/moment/moment.js"> </script>
+<script src="../../assets/plugins/moment/moment.js"></script>
 <script src="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- Sweet Alert js -->
 <script src="../../assets/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>

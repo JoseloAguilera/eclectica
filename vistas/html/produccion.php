@@ -65,10 +65,100 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
     include "../modal/caja.php";
     include "../modal/anular_factura.php";*/
     ?>
-									<div class="row">
-										<div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+								<div class="row">
+										<!-- <div id="resultados" class='col-md-12' style="margin-top:10px"></div> --><!-- Carga los datos ajax -->
+										<button onclick="agregarFila()" class="btn btn-primary">+</button>
+    									<button onclick="finalizar()" class="btn btn-success">Finalizar</button>
+										<table id="tabla">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Material</th>
+													<th>Cantidad</th>
+													<th>Medida</th>
+													<th>Precio Unitario</th>
+													<th>Total</th>
+													<th>Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Filas se agregarán aquí -->
+											</tbody>
+										</table>
 
+
+										<div id="total-mp"></div>
+										
+
+								</div> 
+								<div class="row">
+									<div class="col-md-6">
+										<label for="diasTrabajar">Días a Trabajar:</label>
+										<input type="number" id="diasTrabajar" name="diasTrabajar" class="form-control" onchange="calcularMOD(); calcularDiarioDT();">
 									</div>
+									<div class="col-md-6">
+										<label for="cantidadTrabajadores">Cantidad de Trabajadores:</label>
+										<input type="number" id="cantidadTrabajadores" name="cantidadTrabajadores" class="form-control" onchange="calcularMOD(); calcularDiarioDT();">
+									</div>
+								</div>	
+								<div class="row">
+									<h4>Mano de Obra Directa (MOD)</h4>
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Salario Mensual</th>
+												<th>Jornal Diario</th>
+												<th>Total MOD</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><input type="number" id="salarioMensual" name="salarioMensual" onchange="calcularMOD()"></td>
+												<td><input type="text" id="jornalDiario" name="jornalDiario" readonly></td>
+												<td><input type="text" id="totalMOD" name="totalMOD" readonly></td>
+											</tr>
+										</tbody>
+									</table>
+									<div id="totalMODResult"></div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<h4>Gastos Operativos</h4>
+									</div>
+									<div>
+										<button onclick="agregarFilaGastos()" class="btn btn-primary">+ Agregar Gasto</button> 
+										<button onclick="finalizarGastos()" class="btn btn-success">Finalizar Gastos</button>
+									</div>
+									<div class="table-responsive">
+										<table id="gastosOperativos" class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Concepto</th>
+													<th>Total Mensual</th>
+													<th>Total Diario según DT</th>
+													<th>Acciones</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Filas se agregarán aquí -->
+											</tbody>
+										</table>
+									</div>
+									<div id="diarioDTResult"></div>
+									
+								</div>
+
+
+
+
+
+
+
+
+
+
+
 									<!-- end row -->
 
 
@@ -112,15 +202,162 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/produccion.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
 
 </script>
+<script>
+    var contador = 1;
+
+    function agregarFila() {
+        var table = document.getElementById("tabla").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.rows.length);
+
+        var idCell = newRow.insertCell(0);
+        var materialCell = newRow.insertCell(1);
+        var cantidadCell = newRow.insertCell(2);
+        var medidaCell = newRow.insertCell(3);
+        var precioCell = newRow.insertCell(4);
+        var totalCell = newRow.insertCell(5);
+        var accionesCell = newRow.insertCell(6);
+
+        idCell.innerHTML = contador++;
+        materialCell.innerHTML = '<input type="text" name="material[]">';
+        cantidadCell.innerHTML = '<input type="number" name="cantidad[]">';
+        medidaCell.innerHTML = '<input type="text" name="medida[]">';
+        precioCell.innerHTML = '<input type="number" name="precio[]">';
+        totalCell.innerHTML = '<input type="text" name="total[]" readonly>';
+        accionesCell.innerHTML = '<button onclick="eliminarFila(this)" class="btn btn-danger">-</button>';
+
+        $('input[name^="cantidad"], input[name^="precio"]').on('input', function() {
+            var row = $(this).closest('tr');
+            var cantidad = parseFloat(row.find('input[name^="cantidad"]').val()) || 0;
+            var precio = parseFloat(row.find('input[name^="precio"]').val()) || 0;
+            row.find('input[name^="total"]').val(cantidad * precio);
+        });
+    }
+
+    function eliminarFila(btn) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+
+    function finalizar() {
+        var data = [];
+		var totalMP = 0;
+        $('#tabla tbody tr').each(function(index, tr) {
+            var row = [];
+            $('td', tr).each(function(index, td) {
+                var inputValue = $(td).find('input').val();
+                row.push(inputValue);
+                if (index === 5) { // Índice 5 es la columna del total
+                    totalMP += parseFloat(inputValue) || 0;
+                }
+            });
+            data.push(row);
+        });
+
+        console.log(data);
+		// Mostrar total debajo de la tabla
+        $('#total-mp').html('<strong style="border: solid 2px;padding: 10px; margin: 10px; display: flex;">Total de la Materia Prima: Gs. ' + totalMP.toFixed(0) + '</strong>');
+
+        // Guardar el total en una variable PHP
+        <?php $totalMPPHP = "<script>document.write(totaMP.toFixed(0));</script>"; ?>
+    }
+</script>
+
+<script>
+	function calcularMOD() {
+    var salarioMensual = parseFloat($('#salarioMensual').val()) || 0;
+    var diasTrabajar = parseInt($('#diasTrabajar').val()) || 0;
+    var cantidadTrabajadores = parseInt($('#cantidadTrabajadores').val()) || 0;
+
+    var jornalDiario = salarioMensual / 26;
+    var totalMOD = jornalDiario * diasTrabajar * cantidadTrabajadores;
+
+    $('#jornalDiario').val(jornalDiario.toFixed(2));
+    $('#totalMOD').val(totalMOD.toFixed(2));
+    $('#totalMODResult').html('<strong>Total MOD: Gs. ' + totalMOD.toFixed(0) + '</strong>');
+
+    // Guardar totalMOD en una variable PHP (puedes usar una solicitud AJAX si es necesario)
+    <?php $totalMODPHP = "<script>document.write(totalMOD.toFixed(0));</script>"; ?>
+}
+
+</script>
+
+<script>
+	var contadorGastos = 1;
+
+	function agregarFilaGastos() {
+		var table = document.getElementById("gastosOperativos").getElementsByTagName('tbody')[0];
+		var newRow = table.insertRow(table.rows.length);
+
+		var conceptoCell = newRow.insertCell(0);
+		var totalMensualCell = newRow.insertCell(1);
+		var diarioDTCell = newRow.insertCell(2);
+		var accionesCell = newRow.insertCell(3);
+
+		conceptoCell.innerHTML = '<input type="text" name="concepto[]">';
+		totalMensualCell.innerHTML = '<input type="number" name="totalMensual[]" onchange="calcularDiarioDT()"> ';
+		diarioDTCell.innerHTML = '<input type="text" name="diarioDT[]" readonly>';
+		accionesCell.innerHTML = '<button onclick="eliminarFilaGastos(this)" class="btn btn-danger">-</button>';
+
+		$('input[name^="totalMensual"]').on('input', function() {
+			calcularDiarioDT();
+		});
+	}
+
+	function eliminarFilaGastos(btn) {
+		var row = btn.parentNode.parentNode;
+		row.parentNode.removeChild(row);
+		calcularDiarioDT(); // Recalcular al eliminar una fila
+	}
+
+	function calcularDiarioDT() {
+		$('#gastosOperativos tbody tr').each(function(index, tr) {
+			var totalMensual = parseFloat($(tr).find('input[name="totalMensual[]"]').val()) || 0;
+			var diarioDT = (totalMensual / 30) * parseInt($('#diasTrabajar').val()) || 0;
+			$(tr).find('input[name="diarioDT[]"]').val(diarioDT.toFixed(2));
+		});
+	}
+
+	function finalizarGastos() {
+		var totalDiarioDT = 0;
+
+		$('#gastosOperativos tbody tr').each(function(index, tr) {
+			var diarioDT = parseFloat($(tr).find('input[name="diarioDT[]"]').val()) || 0;
+			totalDiarioDT += diarioDT;
+		});
+
+		$('#diarioDTResult').html('<strong>Sumatoria Total Diario según DT: Gs. ' + totalDiarioDT.toFixed(0) + '</strong>');
+
+		// Guardar totalDiarioDT en una variable PHP
+		<?php $totalDiarioDTPHP = "<script>document.write(totalDiarioDT.toFixed(0));;</script>"; ?>
+	}
+
+</script>
 <!-- FIN -->
 
+ <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+			margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 
-
-
+   
 <?php require 'includes/footer_end.php'
 ?>
