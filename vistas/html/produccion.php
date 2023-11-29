@@ -149,6 +149,31 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 									
 								</div>
 
+								<div class="row">
+									<div class="col-md-6">
+										<h4>Costos y Ganancias</h4>
+										<button id="btn-calcular" class="btn btn-primary">Calcular</button>
+									</div>
+									<div class="col-md-6">
+										
+									</div>
+									<div class="col-md-3">
+										<label for="porcentajePuntoEquilibrio">Porcentaje de Punto de Equilibrio:</label>
+										<input type="number" id="porcentajePuntoEquilibrio" name="porcentajePuntoEquilibrio" class="form-control">
+									</div>
+									<div class="col-md-3">
+										<label for="porcentajeGanancia">Porcentaje de Ganancia Esperada:</label>
+										<input type="number" id="porcentajeGanancia" name="porcentajeGanancia" class="form-control">
+									</div>
+									<div class="col-md-3">
+										<label for="cantidadAProducir">Cantidad a Producir:</label>
+										<input type="number" id="cantidadAProducir" name="cantidadAProducir" class="form-control">
+									</div>
+									
+								</div>
+
+								<div id="resultadosCostosGanancias"></div>
+
 
 
 
@@ -200,10 +225,11 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 <!-- ============================================================== -->
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/produccion.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
@@ -266,7 +292,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
         $('#total-mp').html('<strong style="border: solid 2px;padding: 10px; margin: 10px; display: flex;">Total de la Materia Prima: Gs. ' + totalMP.toFixed(0) + '</strong>');
 
         // Guardar el total en una variable PHP
-        <?php $totalMPPHP = "<script>document.write(totaMP.toFixed(0));</script>"; ?>
+        <?php $totalMPPHP = "<script>document.write(totalMP.toFixed(0));</script>"; ?>
     }
 </script>
 
@@ -336,10 +362,77 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 		$('#diarioDTResult').html('<strong>Sumatoria Total Diario según DT: Gs. ' + totalDiarioDT.toFixed(0) + '</strong>');
 
 		// Guardar totalDiarioDT en una variable PHP
-		<?php $totalDiarioDTPHP = "<script>document.write(totalDiarioDT.toFixed(0));;</script>"; ?>
+		<?php $totalDiarioDTPHP = "<script>document.write(totalDiarioDT.toFixed(0));</script>"; ?>
 	}
 
 </script>
+
+
+
+
+<!-- En lugar de la lógica de AJAX actual -->
+<script>
+    function realizarSolicitudAJAX(data, successCallback, errorCallback) {
+        $.ajax({
+            url: "produccion_ajax.php",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function(response) {
+                if (successCallback && typeof successCallback === 'function') {
+                    successCallback(response);
+                }
+            },
+            error: function(error) {
+                if (errorCallback && typeof errorCallback === 'function') {
+                    errorCallback(error);
+                }
+            }
+        });
+    }
+</script>
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+	   $("#btn-calcular").on("click", function() {
+            // Obtener los valores de las variables PHP
+            var totalMPPHP = <?php echo json_encode($totalMPPHP); ?>;
+            var totalMODPHP = <?php echo json_encode($totalMODPHP); ?>;
+            var totalDiarioDTPHP = <?php echo json_encode($totalDiarioDTPHP); ?>;
+
+			console.log(totalMPPHP, totalMODPHP, totalDiarioDTPHP);
+            // Datos que se enviarán en la solicitud AJAX
+            var datos = {
+                totalMPPHP: totalMPPHP,
+                totalMODPHP: totalMODPHP,
+                totalDiarioDTPHP: totalDiarioDTPHP
+                // Puedes agregar más datos según sea necesario
+            };
+
+            // Función de éxito para manejar la respuesta del servidor
+            function successCallback(response) {
+                console.log(response);
+                $('#resultadosCostosGanancias').html(response);
+            }
+
+            // Función de error para manejar cualquier error en la solicitud AJAX
+            function errorCallback(error) {
+                console.error("Error en la solicitud Ajax:", error);
+            }
+
+            // Llamar a la función para realizar la solicitud AJAX
+            realizarSolicitudAJAX(datos, successCallback, errorCallback);
+        });
+  /*   }); */
+
+</script>
+
+
+
 <!-- FIN -->
 
  <style>
@@ -359,5 +452,10 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
     </style>
 
    
-<?php require 'includes/footer_end.php'
+<?php require 'includes/footer_end.php';
+// ... tu código existente ...
+
+
+
+
 ?>
