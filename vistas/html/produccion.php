@@ -86,7 +86,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 											</tbody>
 										</table>
 
-
+										<input type="hidden" id="totalMPPHP" name="totalMPPHP" value="">
 										<div id="total-mp"></div>
 										
 
@@ -120,6 +120,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 										</tbody>
 									</table>
 									<div id="totalMODResult"></div>
+									<input type="hidden" id="totalMODPHP" name="totalMODPHP" value="">
 								</div>
 
 								<div class="row">
@@ -146,6 +147,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 										</table>
 									</div>
 									<div id="diarioDTResult"></div>
+									<input type="hidden" id="totalDiarioDTPHP" name="totalDiarioDTPHP" value="">
 									
 								</div>
 
@@ -291,8 +293,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 		// Mostrar total debajo de la tabla
         $('#total-mp').html('<strong style="border: solid 2px;padding: 10px; margin: 10px; display: flex;">Total de la Materia Prima: Gs. ' + totalMP.toFixed(0) + '</strong>');
 
-        // Guardar el total en una variable PHP
-        <?php $totalMPPHP = "<script>document.write(totalMP.toFixed(0));</script>"; ?>
+        $('#totalMPPHP').val(totalMP.toFixed(0));
     }
 </script>
 
@@ -309,8 +310,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
     $('#totalMOD').val(totalMOD.toFixed(2));
     $('#totalMODResult').html('<strong>Total MOD: Gs. ' + totalMOD.toFixed(0) + '</strong>');
 
-    // Guardar totalMOD en una variable PHP (puedes usar una solicitud AJAX si es necesario)
-    <?php $totalMODPHP = "<script>document.write(totalMOD.toFixed(0));</script>"; ?>
+    $('#totalMODPHP').val(totalMOD.toFixed(0));
 }
 
 </script>
@@ -361,8 +361,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 		$('#diarioDTResult').html('<strong>Sumatoria Total Diario según DT: Gs. ' + totalDiarioDT.toFixed(0) + '</strong>');
 
-		// Guardar totalDiarioDT en una variable PHP
-		<?php $totalDiarioDTPHP = "<script>document.write(totalDiarioDT.toFixed(0));</script>"; ?>
+		$('#totalDiarioDTPHP').val(totalDiarioDT.toFixed(0));
 	}
 
 </script>
@@ -371,7 +370,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 
 <!-- En lugar de la lógica de AJAX actual -->
-<script>
+<!-- <script>
     function realizarSolicitudAJAX(data, successCallback, errorCallback) {
         $.ajax({
             url: "produccion_ajax.php",
@@ -399,19 +398,19 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 <script>
     $(document).ready(function() {
 	   $("#btn-calcular").on("click", function() {
-            // Obtener los valores de las variables PHP
-            var totalMPPHP = <?php echo json_encode($totalMPPHP); ?>;
-            var totalMODPHP = <?php echo json_encode($totalMODPHP); ?>;
-            var totalDiarioDTPHP = <?php echo json_encode($totalDiarioDTPHP); ?>;
+            // Obtener los valores de los inputs ocultos
+			var totalMPPHP = $("#totalMPPHP").val();
+			var totalMODPHP = $("#totalMODPHP").val();
+			var totalDiarioDTPHP = $("#totalDiarioDTPHP").val();
 
 			console.log(totalMPPHP, totalMODPHP, totalDiarioDTPHP);
             // Datos que se enviarán en la solicitud AJAX
             var datos = {
-                totalMPPHP: totalMPPHP,
-                totalMODPHP: totalMODPHP,
-                totalDiarioDTPHP: totalDiarioDTPHP
-                // Puedes agregar más datos según sea necesario
-            };
+				totalMPPHP: totalMPPHP,
+				totalMODPHP: totalMODPHP,
+				totalDiarioDTPHP: totalDiarioDTPHP
+				// Puedes agregar más datos según sea necesario
+			};
 
             // Función de éxito para manejar la respuesta del servidor
             function successCallback(response) {
@@ -427,10 +426,38 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
             // Llamar a la función para realizar la solicitud AJAX
             realizarSolicitudAJAX(datos, successCallback, errorCallback);
         });
-  /*   }); */
+    });
 
+</script> -->
+
+
+<script>
+    $(document).ready(function() {
+        $("#btn-calcular").on("click", function() {
+            // Obtener los valores de los inputs
+            var totalMPPHP = parseFloat($("#totalMPPHP").val()) || 0;
+            var totalMODPHP = parseFloat($("#totalMODPHP").val()) || 0;
+            var totalDiarioDTPHP = parseFloat($("#totalDiarioDTPHP").val()) || 0;
+            var porcentajePuntoEquilibrio = parseFloat($("#porcentajePuntoEquilibrio").val()) || 0;
+            var porcentajeGanancia = parseFloat($("#porcentajeGanancia").val()) || 0;
+            var cantidadAProducir = parseInt($("#cantidadAProducir").val()) || 0;
+
+            // Calcular costo y ganancia
+            var costoTotal = totalMPPHP + totalMODPHP + totalDiarioDTPHP;
+            var gananciaEsperada = costoTotal * (porcentajeGanancia / 100);
+            var precioVenta = costoTotal + gananciaEsperada;
+            var precioUnitario = precioVenta / cantidadAProducir;
+
+            // Imprimir resultados
+            var resultadosHTML = '<strong>Costo Total: Gs. ' + costoTotal.toFixed(0) + '</strong><br>';
+            resultadosHTML += '<strong>Ganancia Esperada: Gs. ' + gananciaEsperada.toFixed(0) + '</strong><br>';
+            resultadosHTML += '<strong>Precio de Venta: Gs. ' + precioVenta.toFixed(0) + '</strong><br>';
+            resultadosHTML += '<strong>Precio Unitario: Gs. ' + precioUnitario.toFixed(0) + '</strong><br>';
+            
+            $('#resultadosCostosGanancias').html(resultadosHTML);
+        });
+    });
 </script>
-
 
 
 <!-- FIN -->
@@ -453,7 +480,6 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
    
 <?php require 'includes/footer_end.php';
-// ... tu código existente ...
 
 
 
